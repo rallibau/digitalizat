@@ -1,0 +1,41 @@
+body{
+    background: #E9E9E9 url(images/bg01.png) repeat !important;
+}
+.granIbonico {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 6px solid #00A4D9;
+    border-radius: 100px;
+    color: #00A4D9;
+    display: block;
+    font-size: 4em;
+    height: 150px;
+    line-height: 150px;
+    margin: 0 auto 0.8em;
+    position: relative;
+    text-align: center;
+    width: 150px;
+}
+.xicotetIbonico {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #00A4D9;
+    display: block;
+    font-size: 4em;
+    height: 5px;
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+    width: 5px;
+}
+.spacerTop{
+    margin-top: 10px;
+}
+.spacerLateral{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.centrado{
+    text-align: center;
+}
+.articuloPortada{
+    padding-bottom: 25px;
+}

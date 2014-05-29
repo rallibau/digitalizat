@@ -6,7 +6,7 @@
 
 package com.digitalizat.control;
 
-import com.digitalizat.data.User;
+import com.digitalitzat.user.pojo.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class LoginControl {
         
         sesion.setAttribute("logged", true);
         User usuario = new User();
-        usuario.setAcronimo(user);
+        usuario.setEmail(user);
         sesion.setAttribute("user", usuario);
         sesion.setAttribute("acronimo", user);
         
@@ -39,6 +39,16 @@ public class LoginControl {
         HttpSession sesion = request.getSession();
         sesion.invalidate();
         return 1;
+    }
+    @RequestMapping(value = "viewSignin")
+    public String viewSignin(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("logged")!=null && ((Boolean)sesion.getAttribute("logged"))){
+            return "plataforma/viewDeskTop";
+        }else{
+            return "plataforma/signin";
+        }
+        
     }
     
 }

@@ -12,8 +12,8 @@
 <div class="row">
     <div class="span9">
         <div id="logo" class="container">
-            <h1><a href="#">Digitaliza<span style="font-size: 140%;">T</span></a></h1>
-            <p>Servicios de digtalizaci&oacute;n y gestión del archivo electrónico</p>
+            <h1><a href="#">digitaliza<span style="font-size: 140%;">T</span></a></h1>
+            <p>Digtalizaci&oacute;n y gestión del archivo electrónico</p>
         </div>
     </div>
     <div class="span3" style="text-align: right;margin-top: 30px;">

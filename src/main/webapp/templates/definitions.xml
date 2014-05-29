@@ -12,5 +12,18 @@
         <put-attribute name="title" value="" />
         <put-attribute name="pagina" value="" />
     </definition>
+    <definition name="loginTemplate" template="/templates/login/template.jsp">
+        <put-attribute name="currentPage" value="front" />
+        <put-attribute name="footer" value="/templates/login/footer.jsp" />
+        <put-attribute name="title" value="" />
+        <put-attribute name="pagina" value="" />
+    </definition>
+    <definition name="aplyTemplate" template="/templates/apply/template.jsp">
+        <put-attribute name="currentPage" value="front" />
+        <put-attribute name="header" value="/templates/apply/header.jsp" />
+        <put-attribute name="footer" value="/templates/apply/footer.jsp" />
+        <put-attribute name="title" value="" />
+        <put-attribute name="pagina" value="" />
+    </definition>
   
 </tiles-definitions>

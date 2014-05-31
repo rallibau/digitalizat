@@ -12,13 +12,14 @@
     <tiles:putAttribute name="body">
         <!-- Begin page content -->
         <div class="container" style="text-align: center;">
-            <form class="form-signin" style="text-align: left;">
+            <form class="form-signin" style="text-align: left;max-width: 320px;">
                 <h2 class="form-signin-heading">Acceder</h2>
+                Usuario
                 <input type="text" id="user" class="input-block-level" placeholder="Email address"/>
+                Contraseña
                 <input type="password" class="input-block-level" placeholder="Password"/>
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me"/> Recuerda me
-                </label>
+                <a href="#forgot_password">¿Olvidaste tu contraseña?</a>
+                <a class="create-account" href="viewNewUser.view">Crea una cuenta nueva</a>
 
             </form>
             <button class="btn btn-large btn-primary" onclick="doLogin()">Enviar</button>

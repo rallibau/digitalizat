@@ -1,5 +1,10 @@
 body{
     background: #E9E9E9 url(../images/bg01.png) repeat !important;
+    height:100%;
+}
+html{
+    height:100%;
+
 }
 .granIbonico {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -38,4 +43,9 @@ body{
 }
 .articuloPortada{
     padding-bottom: 25px;
+}
+iframe {
+    height:84vh;width:100%;display:block;
+    overflow: hidden;
+    border: none;
 }

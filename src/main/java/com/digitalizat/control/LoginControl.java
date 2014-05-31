@@ -6,7 +6,8 @@
 
 package com.digitalizat.control;
 
-import com.digitalitzat.user.pojo.User;
+import com.digitalitzat.user.dao.UserDAOImpl;
+import com.digitalitzat.user.dao.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,23 @@ public class LoginControl {
         return usuario;
     }
     
+    @RequestMapping(value="saveUser")
+    public @ResponseBody User saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "pwd", required = true) String pwd,HttpServletRequest request){
+        System.out.println("HomeController: Passing through...");
+        HttpSession sesion = request.getSession();
+        
+        sesion.setAttribute("logged", true);
+        User usuario = new User();
+        usuario.setPassword(pwd);
+        usuario.setEmail(user);
+        UserDAOImpl dao = new UserDAOImpl();
+        dao.addUser(usuario);
+        sesion.setAttribute("user", usuario);
+        sesion.setAttribute("acronimo", user);
+        
+        return usuario;
+    }
+    
     @RequestMapping(value="doLoginClose")
     public @ResponseBody Integer doLoginClose(HttpServletRequest request){
         HttpSession sesion = request.getSession();
@@ -48,7 +66,15 @@ public class LoginControl {
         }else{
             return "plataforma/signin";
         }
-        
+    }
+    @RequestMapping(value = "viewNewUser")
+    public String viewNewUser(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("logged")!=null && ((Boolean)sesion.getAttribute("logged"))){
+            return "plataforma/viewDeskTop";
+        }else{
+            return "plataforma/newUser";
+        }
     }
     
 }

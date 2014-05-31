@@ -25,58 +25,83 @@
                 }
             }
         </style>
-        <div class="container-fluid" style="padding-top:50px;">
-            <div class="span3">
-                <div class="well sidebar-nav">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Sidebar</li>
-                        <li class="active"><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                </div><!--/.well -->
+        <div class="span3">
+            <div class="well" style="height:80vh;margin-top: 3vh;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Mi archivo</li>
+                    <li class="active"><a href="#">Carpeta</a></li>
+                    <li><a href="#">Inbox</a></li>
+                    <li><a href="#">Buscador</a></li>
+                    <li><a href="#">Nuevo</a></li>
+                </ul>
+                <ul class="nav nav-list">
+                    <li class="nav-header">Actividad</li>
+                    <li><a href="#">Todos los eventos</a></li>
+                    <li><a href="#">Entradas</a></li>
+                    <li><a href="#">Modificaciones </a></li>
+                    <li><a href="#">Visualizaciones</a></li>
+                </ul>
             </div>
-            <div class="span10" style="overflow-y: auto;overflow-x: hidden;max-height: 500px;">
-                <div class="hero-unit">
-                    <h1>Hello, world!</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-                </div>
-                <div class="hero-unit">
-                    <h1>Hello, world!</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-                </div>
-                <div class="hero-unit">
-                    <h1>Hello, world!</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-                </div>
-                <div class="hero-unit">
-                    <h1>Hello, world!</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-                </div>
-                <div class="hero-unit">
-                    <h1>Hello, world!</h1>
-                    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-                </div>
-                
+        </div>
+        <div class="span8" style="height:80vh;margin-top: 3vh;">
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3><a href="fileView.view">legislacion laboral</a></h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img alt="100x30" data-src="holder.js/230x180" style="width: 220px; height: 150px;" src="obtenerMiniatura.server?codigo=ficticio">
+                            <div class="caption">
+                                <h3>Thumbnail label</h3>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
         </div>
+
     </tiles:putAttribute>
 </tiles:insertDefinition>

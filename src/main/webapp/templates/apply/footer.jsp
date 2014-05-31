@@ -18,4 +18,15 @@
             }
         });
     }
+    function closeSession() {
+        $.ajax({
+            url: 'doLoginClose.server',
+            data: 'user=' + $("#user").val(),
+            dataType: 'json',
+            success: function(data)
+            {
+                window.location = "viewDeskTop.view";
+            }
+        });
+    }
 </script>

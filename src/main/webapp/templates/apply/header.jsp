@@ -9,7 +9,7 @@
 <c:set var="logged" value="${sessionScope.logged}" />
 <c:set var="acronimo" value="${sessionScope.acronimo}" />
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top" style="height:10vh;">
     <div class="navbar-inner">
         <div class="container-fluid">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -17,12 +17,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">Digitalisat.com</a>
+            <a class="brand" href="/digitalizatWebSite">Digitalisat.com</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="#">Inicio</a></li>
-                    <li><a href="#about">Configuraci&oacute;n</a></li>
-                    <li><a href="#contact">Soporte</a></li>
+                    <li class="active"><a href="viewDeskTop.view">Carpeta</a></li>
+                    <li><a href="viewDeskTop.view">Actividad</a></li>
+                    <li><a href="viewDeskTop.view">Configuraci&oacute;n</a></li>
+                    <li><a href="viewDeskTop.view">Soporte</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
             <c:if test="${logged eq true}">

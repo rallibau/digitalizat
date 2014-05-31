@@ -108,10 +108,15 @@ Released   : 20130801
 
     </head>
     <body>
-        <div id="wrap">
-            <tiles:insertAttribute name="header" />
-            <tiles:insertAttribute name="body" />
+        <div class="container-fluid">
+            <div class="row-fluid" style="height:7vh;">
+                <tiles:insertAttribute name="header" />
+            </div>
+            <div class="row-fluid" style="height:93vh;">
+                <tiles:insertAttribute name="body" />
+            </div>
+            <tiles:insertAttribute name="footer" />
         </div>
-        <tiles:insertAttribute name="footer" />
+        </div>
     </body>
 </html>

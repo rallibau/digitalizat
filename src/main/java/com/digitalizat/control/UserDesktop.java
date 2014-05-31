@@ -26,5 +26,14 @@ public class UserDesktop {
             return "plataforma/signin";
         }
     }
+    @RequestMapping(value = "fileView")
+    public String fileView(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if(sesion.getAttribute("logged")!=null && ((Boolean)sesion.getAttribute("logged"))){
+            return "plataforma/fileView";
+        }else{
+            return "plataforma/signin";
+        }
+    }
     
 }

@@ -6,7 +6,7 @@
 package com.digitalizat.control;
 
 import com.digitalitzat.user.dao.UserDAOImpl;
-import com.digitalitzat.user.pojo.User;
+import com.digitalitzat.user.dao.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -38,12 +38,6 @@ public class ViewControl {
         if(sesion.getAttribute("logged")==null){
             sesion.setAttribute("logged", false);
         }
-        
-        User usuario = new User();
-        usuario.setEmail("rallibau@gmail.com");
-        UserDAOImpl dao = new UserDAOImpl();
-        dao.addUser(usuario);
-        
         request.setAttribute("area", "servicios");
         return "servicios";
     }

@@ -17,7 +17,7 @@
                 Usuario
                 <input type="text" id="user" class="input-block-level" placeholder="Email address"/>
                 Contraseña
-                <input type="password" class="input-block-level" placeholder="Password"/>
+                <input type="password" id="pwd" class="input-block-level" placeholder="Password"/>
                 <a href="#forgot_password">¿Olvidaste tu contraseña?</a>
                 <a class="create-account" href="viewNewUser.view">Crea una cuenta nueva</a>
 

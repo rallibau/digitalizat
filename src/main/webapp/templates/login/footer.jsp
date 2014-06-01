@@ -16,7 +16,7 @@
     function doLogin() {
         $.ajax({
             url: 'doLogin.server',
-            data: 'user=' + $("#user").val(),
+            data: 'user=' + $("#user").val()+"&pwd="+$("#pwd").val(),
             dataType: 'json',
             success: function(data)
             {

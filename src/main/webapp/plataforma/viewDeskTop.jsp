@@ -32,7 +32,7 @@
                     <li class="active"><a href="#">Carpeta</a></li>
                     <li><a href="#">Inbox</a></li>
                     <li><a href="#">Buscador</a></li>
-                    <li><a href="#">Nuevo</a></li>
+                    <li><a href="newFile.view">Nuevo</a></li>
                 </ul>
                 <ul class="nav nav-list">
                     <li class="nav-header">Actividad</li>

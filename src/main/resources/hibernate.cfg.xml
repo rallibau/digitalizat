@@ -13,7 +13,8 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
         
-        <mapping class="com.digitalitzat.user.pojo.User" />
+        <mapping class="com.digitalitzat.user.dao.User" />
+        <mapping class="com.digitalitzat.organization.dao.Organization" />
     </session-factory>
     
 </hibernate-configuration>

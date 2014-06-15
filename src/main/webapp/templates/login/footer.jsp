@@ -11,16 +11,16 @@
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 <script>
     function doLogin() {
         $.ajax({
-            url: 'doLogin.server',
+            url: '<%= request.getContextPath() %>/server/doLogin',
             data: 'user=' + $("#user").val()+"&pwd="+$("#pwd").val(),
             dataType: 'json',
             success: function(data)
             {
-                window.location.replace("viewDeskTop.view");
+                window.location.replace("<%= request.getContextPath() %>/view/viewDeskTop");
             }
         });
     }

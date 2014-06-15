@@ -1,9 +1,11 @@
 <%-- 
-    Document   : viewDeskTop
-    Created on : 25-may-2014, 16:30:29
+    Document   : users
+    Created on : 12-jun-2014, 20:39:56
     Author     : rallibau
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tiles:insertDefinition name="aplyTemplate">
@@ -39,7 +41,36 @@
                 </div>
             </div>
             <div class="span8" style="height:80vh;margin-top: 3vh;">
-                <iframe id="iframe" src="${pageContext.request.contextPath}/web/viewer.html?file=/digitalizatWebSite/server/obtenerFichero/${documento.id}" scrolling="no"></iframe>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

@@ -10,12 +10,12 @@
 <div id="menu" class="container">
     <ul>
         <c:if test="${area eq 'portada'}">
-            <li class="current_page_item"><a href="portada.view" accesskey="1" title="">Inicio</a></li>
-            <li><a href="servicios.view" accesskey="1" title="">Servicios</a></li>
+            <li class="current_page_item"><a href=" <%= request.getContextPath() %>/view/portada" accesskey="1" title="">Inicio</a></li>
+            <li><a href=" <%= request.getContextPath() %>/view/servicios" accesskey="1" title="">Servicios</a></li>
         </c:if>
         <c:if test="${area eq 'servicios'}">
-            <li><a href="portada.view" accesskey="1" title="">Inicio</a></li>
-            <li class="current_page_item"><a href="servicios.view" accesskey="1" title="">Servicios</a></li>
+            <li><a href="<%= request.getContextPath() %>/view/portada" accesskey="1" title="">Inicio</a></li>
+            <li class="current_page_item"><a href="<%= request.getContextPath() %>/view/servicios" accesskey="1" title="">Servicios</a></li>
         </c:if>    
        
     </ul>

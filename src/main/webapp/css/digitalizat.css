@@ -1,5 +1,4 @@
 body{
-    background: #E9E9E9 url(../images/bg01.png) repeat !important;
     height:100%;
 }
 html{
@@ -48,4 +47,23 @@ iframe {
     height:84vh;width:100%;display:block;
     overflow: hidden;
     border: none;
+}
+.miniatura{
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    box-shadow: 3px 3px 0 -1px #DDDDDD;
+    padding: 1px;
+    vertical-align: top;
+}
+.docTittle{
+    color: #222222;
+    font-size: 13px;
+    line-height: 21px;
+    text-align: center;
+    white-space: nowrap;
+}
+.miniatura:hover{
+    box-shadow: 6px 6px 0 -2px #DDDDDD;
+    cursor: pointer;
+    
 }

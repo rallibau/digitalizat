@@ -8,7 +8,7 @@
     <p>Todos los derechos reservado por digitalizat.com</p>
 </div>
 <script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 <script>
     function doLogin() {
         $.ajax({

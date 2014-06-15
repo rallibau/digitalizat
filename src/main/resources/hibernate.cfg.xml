@@ -15,6 +15,7 @@
         
         <mapping class="com.digitalitzat.user.dao.User" />
         <mapping class="com.digitalitzat.organization.dao.Organization" />
+        <mapping class="com.digitalizat.document.dao.Document" />
     </session-factory>
     
 </hibernate-configuration>

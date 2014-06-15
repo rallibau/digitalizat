@@ -5,8 +5,6 @@
  */
 package com.digitalizat.control;
 
-import com.digitalitzat.user.dao.UserDAOImpl;
-import com.digitalitzat.user.dao.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -28,7 +26,7 @@ public class ViewControl {
             sesion.setAttribute("logged", false);
         }
         request.setAttribute("area", "portada");
-        return "portada";
+        return "/portada";
     }
 
     @RequestMapping(value = "servicios")
@@ -39,7 +37,7 @@ public class ViewControl {
             sesion.setAttribute("logged", false);
         }
         request.setAttribute("area", "servicios");
-        return "servicios";
+        return "/servicios";
     }
 
 }

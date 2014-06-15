@@ -14,11 +14,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.server</url-pattern>
+        <url-pattern>/server/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.view</url-pattern>
+        <url-pattern>/view/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -26,6 +26,10 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>portada.view</welcome-file>
+        <welcome-file>view/portada</welcome-file>
     </welcome-file-list>
+    <!-- Load Spring Contexts -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 </web-app>

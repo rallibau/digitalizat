@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="span8" style="height:80vh;margin-top: 3vh;">
-            <form class="form-search" method="post" action="guardarFichero.server" enctype="multipart/form-data" commandName="fileFormBean">
+            <form class="form-search" method="post" action="${pageContext.request.contextPath}/view/guardarFichero" enctype="multipart/form-data" commandName="fileFormBean">
                 <input type="file" id="file" name="file" class="input-medium search-query">
                 <button type="submit" class="btn">Subir</button>
             </form>

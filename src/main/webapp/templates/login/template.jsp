@@ -20,11 +20,11 @@ Released   : 20130801
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-        <link href="default.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-        <link href="css/bootstrap-responsive.css" rel="stylesheet" />    
-        <link href="css/digitalizat.css" rel="stylesheet" />
+        <link href="<%= request.getContextPath() %>/default.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="<%= request.getContextPath() %>/fonts.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <link href="<%= request.getContextPath() %>/css/bootstrap-responsive.css" rel="stylesheet" />    
+        <link href="<%= request.getContextPath() %>/css/digitalizat.css" rel="stylesheet" />
         <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
         <style type="text/css">
 

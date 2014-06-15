@@ -15,6 +15,9 @@
         <div class="container" style="text-align: center;">
             <form class="form-signin" style="text-align: left;max-width: 500px;">
                 <h2 class="form-signin-heading">Acceder</h2>
+                Organizaci&oacute;n
+                <input type="text" id="org" class="input-block-level" placeholder="Organizaci&oacute;n"/>
+                <div class="alert alert-error" id="alertMsnOrg" style="display: none;"></div>
                 Usuario
                 <input type="text" id="user" class="input-block-level" placeholder="direccion de correo"/>
                 <div class="alert alert-error" id="alertMsnUser" style="display: none;"></div>
@@ -33,6 +36,12 @@
             function sendNewUser() {
                 $("#alertMsnUser").css("display", "none");
                 $("#alertMsnCon").css("display", "none");
+                
+                if ($("#org").val().length < 1) {
+                    $("#alertMsnOrg").css("display", "block");
+                    $("#alertMsnOrg").html("Introduzca un nombre para organizaci&oacute;n");
+                    return;
+                }
 
                 if ($("#user").val().length < 1) {
                     $("#alertMsnUser").css("display", "block");
@@ -51,7 +60,7 @@
                 }
                 $.ajax({
                     url: 'saveUser.server',
-                    data: 'user=' + $("#user").val()+"&"+'pwd=' + $("#pwd1").val(),
+                    data: 'user=' + $("#user").val()+"&"+'pwd=' + $("#pwd1").val()+"&"+'org=' + $("#org").val(),
                     dataType: 'json',
                     success: function(data)
                     {

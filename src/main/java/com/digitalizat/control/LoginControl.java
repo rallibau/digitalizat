@@ -5,17 +5,15 @@
  */
 package com.digitalizat.control;
 
-import com.digitalitzat.organization.dao.Organization;
-import com.digitalitzat.organization.dao.OrganizationDAO;
-import com.digitalitzat.organization.dao.OrganizationDaoIml;
-import com.digitalitzat.user.dao.UserDAOImpl;
-import com.digitalitzat.user.dao.User;
-import com.digitalitzat.user.dao.UserDAO;
+import com.digitalizat.business.ACLMananger;
+import com.digitalizat.organization.dao.Organization;
+import com.digitalizat.user.dao.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +25,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class LoginControl {
+    
+    @Autowired
+    ACLMananger aclManager;
 
     @RequestMapping(value = "doLogin")
     public @ResponseBody
     User doLogin(@RequestParam(value = "user", required = true) String user, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws Exception {
         System.out.println("HomeController: Passing through...");
-        UserDAO daouser = new UserDAOImpl();
-
-        User usuarioALogar = daouser.getUser(user);
+        
+        User usuarioALogar = aclManager.getUser(user);
 
         MessageDigest mda = MessageDigest.getInstance("SHA-512");
         byte[] digesta = mda.digest(pwd.getBytes());
@@ -53,14 +53,13 @@ public class LoginControl {
 
     @RequestMapping(value = "saveUser")
     public @ResponseBody
-    User saveUser(@RequestParam(value = "user", required = true) String user, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException {
+    User saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "org", required = true) String organizacion, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException {
         System.out.println("HomeController: Passing through...");
         HttpSession sesion = request.getSession();
 
         Organization org = new Organization();
-        org.setNombre("ficticia");
-        OrganizationDAO daoOrg = new OrganizationDaoIml();
-        daoOrg.addOrganization(org);
+        org.setName(organizacion);
+        aclManager.addOrganization(org);
 
         sesion.setAttribute("logged", true);
         User usuario = new User();
@@ -68,9 +67,9 @@ public class LoginControl {
         byte[] digesta = mda.digest(pwd.getBytes());
         usuario.setPassword(toHexadecimal(digesta));
         usuario.setEmail(user);
-        usuario.setOrganizacion(org);
-        UserDAOImpl dao = new UserDAOImpl();
-        dao.addUser(usuario);
+        usuario.setBranch(aclManager.getOrgMainBranch(org.getId()));
+        
+        aclManager.addUser(usuario);
         sesion.setAttribute("user", usuario);
         sesion.setAttribute("acronimo", user);
 
@@ -101,9 +100,9 @@ public class LoginControl {
     public String viewSignin(HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "plataforma/viewDeskTop";
+            return "/plataforma/viewDeskTop";
         } else {
-            return "plataforma/signin";
+            return "/plataforma/signin";
         }
     }
 
@@ -111,9 +110,9 @@ public class LoginControl {
     public String viewNewUser(HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "plataforma/viewDeskTop";
+            return "/plataforma/viewDeskTop";
         } else {
-            return "plataforma/newUser";
+            return "/plataforma/newUser";
         }
     }
 

@@ -24,8 +24,8 @@
     }
     function closeSession() {
         $.ajax({
-            url: 'doLoginClose.server',
-            data: 'user=' + $("#user").val(),
+            url: '<%= request.getContextPath() %>/server/doLoginClose.server',
+            data: '',
             dataType: 'json',
             success: function(data)
             {

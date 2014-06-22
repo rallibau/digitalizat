@@ -13,16 +13,11 @@
 
 <div class="masthead">
     <h3 class="muted">${sessionScope.user.branch.organization.name}</h3>
-    <div class="navbar">
+    <div class="navbar" id="menuPrincipal" ng-controller="obtenerMenuController">
         <div class="navbar-inner">
             <div class="container">
                 <ul class="nav">
-                    <li class="active"><a href="<%= request.getContextPath()%>/view/viewDeskTop">Documentos</a></li>
-                    <li><a href="<%= request.getContextPath()%>/view/users">Usuarios</a></li>
-                    <li><a href="#">Sucursales</a></li>
-                    <li><a href="#">Configuraci&oacute;n</a></li>
-                    <li><a href="#">Ayuda</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li class="active" ng-repeat="resource in resources"><a href="<%= request.getContextPath()%>{{resource.path}}">{{resource.name}}</a></li>
                 </ul>
             </div>
         </div>

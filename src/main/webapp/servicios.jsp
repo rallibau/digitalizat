@@ -24,7 +24,7 @@
                 
             </div>
             <div id="box2" style="text-align: center;">
-                <a target="_blank" href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
+                <a href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
             </div>
         </div>
          <div id="page">
@@ -37,7 +37,7 @@
                 
             </div>
             <div id="box2" style="text-align: center;">
-                <a target="_blank" href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
+                <a href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
             </div>
         </div>
         <div id="page">
@@ -50,7 +50,7 @@
                 
             </div>
             <div id="box2" style="text-align: center;">
-                <a target="_blank" href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
+                <a href="viewSignin" class="button" style="margin-top: 100px;">Acceder</a>
             </div>
         </div>
     </tiles:putAttribute>

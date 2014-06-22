@@ -6,6 +6,9 @@
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/angular.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/digitalizat.common.controllers.js"></script>
+<script src="<%= request.getContextPath() %>/js/digitalizat.tdoc.controllers.js"></script>
 <script>
     function doLogin() {
         $.ajax({
@@ -21,7 +24,7 @@
     function closeSession() {
         $.ajax({
             url: 'doLoginClose.server',
-            data: 'user=' + $("#user").val(),
+            data: '',
             dataType: 'json',
             success: function(data)
             {

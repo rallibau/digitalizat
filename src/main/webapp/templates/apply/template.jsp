@@ -107,7 +107,7 @@ Released   : 20130801
         </style>
 
     </head>
-    <body>
+    <body ng-app>
         <div class="container-fluid">
             <tiles:insertAttribute name="header" />
             <tiles:insertAttribute name="body" />

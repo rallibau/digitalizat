@@ -38,16 +38,13 @@
 
                 </div>
             </div>
-            <div class="span6">
-                <c:forEach var="doc" items="${docs}" varStatus="status">
-                    <div style="width:120px; float: left; margin: 20px;">
-                        <img class="miniatura" style="width: 110px; height: 150px;" src="obtenerMiniatura.server?codigo=${doc.id}" onclick="window.location.href = 'fileView/${doc.id}'">
-                        <div class="docTittle" style="width: 110px;">
-                            <a href="fileView/${doc.id}">${doc.fileName}</a>
-                        </div>
+            <div class="span6" ng-controller="seeFolderController">
+                <div style="width:120px; float: left; margin: 20px;" ng-repeat="doc in docs">
+                    <img class="miniatura" style="width: 110px; height: 150px;" src="obtenerMiniatura.server?codigo={{doc.id}}" onclick='window.location.href = "fileView/"+doc.id'>
+                    <div class="docTittle" style="width: 110px;">
+                        <a href="fileView/{{doc.id}}">{{doc.fileName}}</a>
                     </div>
-
-                </c:forEach>
+                </div>
             </div>
             <div class="span2">
                 <ul class="nav nav-list">

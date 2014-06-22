@@ -30,8 +30,7 @@ public class LoginControl {
     ACLMananger aclManager;
 
     @RequestMapping(value = "doLogin")
-    public @ResponseBody
-    User doLogin(@RequestParam(value = "user", required = true) String user, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws Exception {
+    public @ResponseBody User doLogin(@RequestParam(value = "user", required = true) String user, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws Exception {
         System.out.println("HomeController: Passing through...");
         
         User usuarioALogar = aclManager.getUser(user);
@@ -52,8 +51,7 @@ public class LoginControl {
     }
 
     @RequestMapping(value = "saveUser")
-    public @ResponseBody
-    User saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "org", required = true) String organizacion, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException {
+    public @ResponseBody User saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "org", required = true) String organizacion, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException {
         System.out.println("HomeController: Passing through...");
         HttpSession sesion = request.getSession();
 

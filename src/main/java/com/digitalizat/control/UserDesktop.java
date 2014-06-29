@@ -6,9 +6,7 @@
 package com.digitalizat.control;
 
 import com.digitalizat.business.TdocManager;
-import com.digitalizat.user.dao.User;
 import com.digitalizat.document.dao.Document;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,9 @@ public class UserDesktop {
     public String viewDeskTop(HttpServletRequest request) throws Exception {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            User logado = (User)sesion.getAttribute("user");
-            List<Document> docs = tdocManager.listDocuments(logado.getBranch().getId());
-            request.setAttribute("docs", docs);
+            //User logado = (User)sesion.getAttribute("user");
+            //List<Document> docs = tdocManager.listDocuments(logado.getBranch().getId());
+            //request.setAttribute("docs", docs);
             return "/plataforma/viewDeskTop";
         } else {
             return "/plataforma/signin";
@@ -66,6 +64,25 @@ public class UserDesktop {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
             return "/plataforma/users";
+        } else {
+            return "/plataforma/signin";
+        }
+    }
+    
+    @RequestMapping(value = "organization")
+    public String organization(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
+            return "/plataforma/organization";
+        } else {
+            return "/plataforma/users";
+        }
+    }
+    @RequestMapping(value = "myself")
+    public String mySelf(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
+            return "/plataforma/myself";
         } else {
             return "/plataforma/users";
         }

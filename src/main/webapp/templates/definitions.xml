@@ -3,15 +3,6 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  
-    <definition name="defaultTemplate" template="/templates/default/template.jsp">
-        <put-attribute name="header" value="/templates/default/header.jsp" />
-        <put-attribute name="menu" value="/templates/default/menu.jsp" />
-        <put-attribute name="currentPage" value="front" />
-        <put-attribute name="footer" value="/templates/default/footer.jsp" />
-        <put-attribute name="title" value="" />
-        <put-attribute name="pagina" value="" />
-    </definition>
     <definition name="loginTemplate" template="/templates/login/template.jsp">
         <put-attribute name="currentPage" value="front" />
         <put-attribute name="footer" value="/templates/login/footer.jsp" />

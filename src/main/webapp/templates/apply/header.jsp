@@ -10,16 +10,31 @@
 <c:set var="acronimo" value="${sessionScope.acronimo}" />
 
 
-
-<div class="masthead">
-    <h3 class="muted">${sessionScope.user.branch.organization.name}</h3>
-    <div class="navbar" id="menuPrincipal" ng-controller="obtenerMenuController">
-        <div class="navbar-inner">
-            <div class="container">
+<div class="navbar navbar-fixed-top" ng-controller="obtenerMenuController">
+    <div class="navbar-inner" id="menuPrincipal">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">${sessionScope.user.branch.organization.name}</a>
+            <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active" ng-repeat="resource in resources"><a href="<%= request.getContextPath()%>{{resource.path}}">{{resource.name}}</a></li>
+                    <li ng-repeat="resource in resources"><a href="<%= request.getContextPath()%>{{resource.path}}">{{resource.name}}</a></li>
+                    <li><a href="<%= request.getContextPath()%>/view/myself">${sessionScope.user.email}</a></li>
+                    <!-- li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.user.email} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<%= request.getContextPath()%>/view/doLoginClose">Cerrar sesión</a></li>
+                            <li><a href="<%= request.getContextPath()%>/view/myself">Mi perfil</a></li>
+                            <li><a href="<%= request.getContextPath()%>/view/organization">Mi empresa</a></li>
+                            
+                        </ul>
+                    </li -->
                 </ul>
-            </div>
+            </div><!--/.nav-collapse -->
         </div>
-    </div><!-- /.navbar -->
+    </div>
 </div>
+

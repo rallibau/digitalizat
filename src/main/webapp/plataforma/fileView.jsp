@@ -11,35 +11,19 @@
         Escritorio
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
-        <style type="text/css">
-            .sidebar-nav {
-                padding: 9px 0;
-            }
-
-            @media (max-width: 980px) {
-                /* Enable use of floated navbar text */
-                .navbar-text.pull-right {
-                    float: none;
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-            }
-        </style>
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="" style="height:80vh;margin-top: 3vh;">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">${documento.fileName} -  ${documento.id}</li>
-                        <li class="active"><a href="#">Documento</a></li>
-                        <li><a href="#">Atributos</a></li>
-                        <li><a href="#">Versiones</a></li>
-                        <li><a href="#">Permisos</a></li>
-                        <li><a href="#">Metadatos</a></li>
-                    </ul>
-                </div>
+        <div style="text-align: center; width: 100%">
+            <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;">
+                <a href="${pageContext.request.contextPath}/view/viewDeskTop" role="button" class="btn" data-toggle="modal"><i class="icon-th"></i>Mis documentos</a>
+                <a href="${pageContext.request.contextPath}/view/viewDeskTop" role="button" class="btn" data-toggle="modal"><i class="icon-list-alt"></i>Metadatos</a>
+                <a href="${pageContext.request.contextPath}/view/viewDeskTop" role="button" class="btn" data-toggle="modal"><i class="icon-user"></i>Permisos</a>
             </div>
-            <div class="span8" style="height:80vh;margin-top: 3vh;">
-                <iframe id="iframe" src="${pageContext.request.contextPath}/web/viewer.html?file=/digitalizatWebSite/server/obtenerFichero/${documento.id}" scrolling="no"></iframe>
+            <div style="max-width: 1024px; margin: auto;">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <iframe style="margin: 5px;" id="iframe" src="${pageContext.request.contextPath}/web/viewer.html?file=/tcloud/server/obtenerFichero/${documento.id}" scrolling="no"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 

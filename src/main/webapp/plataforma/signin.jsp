@@ -5,11 +5,14 @@
 --%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:set var="url" value="${pageContext.request.contextPath}"/>
 <tiles:insertDefinition name="loginTemplate">
     <tiles:putAttribute name="title">
         Acceder
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
+
         <!-- Begin page content -->
         <div class="container" style="text-align: center;">
             <form class="form-signin" style="text-align: left;max-width: 320px;">
@@ -19,12 +22,14 @@
                 Contraseña
                 <input type="password" id="pwd" class="input-block-level" placeholder="Password"/>
                 <a href="#forgot_password">¿Olvidaste tu contraseña?</a>
-                <a class="create-account" href="viewNewUser.view">Crea una cuenta nueva</a>
+                <a class="create-account" href="${url}/view/viewNewUser.view">Crea una cuenta nueva</a>
 
             </form>
+            <div id="loginError" class="alert alert-error" style="display: none;">
+                <strong>No puedes pasar!!</strong>
+                La contraseña o el usuario son incorrectos
+            </div>
             <button class="btn btn-large btn-primary" onclick="doLogin()">Enviar</button>
         </div>
-
-        <div id="push"></div>
     </tiles:putAttribute>
 </tiles:insertDefinition>

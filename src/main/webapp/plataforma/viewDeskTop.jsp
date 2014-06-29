@@ -11,51 +11,38 @@
         Escritorio
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
-        <style type="text/css">
-            .sidebar-nav {
-                padding: 9px 0;
-            }
+        <div style="text-align: center; width: 100%">
 
-            @media (max-width: 980px) {
-                /* Enable use of floated navbar text */
-                .navbar-text.pull-right {
-                    float: none;
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-            }
-        </style>
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="" style="">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Mi archivo</li>
-                        <li class="active"><a href="#">Carpeta</a></li>
-                        <li><a href="#">Inbox</a></li>
-                        <li><a href="#">Buscador</a></li>
-                        <li><a href="newFile">Nuevo</a></li>
-                    </ul>
-
-                </div>
+            <div style="width: 100%;padding-top: 10px;padding-bottom: 10px;">
+                <a href="#myModal" role="button" class="btn" data-toggle="modal"><i class="icon-plus"></i>Subir documento</a>
             </div>
-            <div class="span6" ng-controller="seeFolderController">
-                <div style="width:120px; float: left; margin: 20px;" ng-repeat="doc in docs">
-                    <img class="miniatura" style="width: 110px; height: 150px;" src="obtenerMiniatura.server?codigo={{doc.id}}" onclick='window.location.href = "fileView/"+doc.id'>
-                    <div class="docTittle" style="width: 110px;">
-                        <a href="fileView/{{doc.id}}">{{doc.fileName}}</a>
+
+            <div style="max-width: 1024px; margin: auto; text-align: left;">
+                <div class="span12" ng-controller="seeFolderController">
+                    <div style="width:120px; float: left; margin: 20px; margin-top: 0px;" ng-repeat="doc in docs">
+                        <img class="miniatura" src="obtenerMiniatura.server?codigo={{doc.id}}" onclick='window.location.href = "fileView/" + doc.id'>
+                        <div class="docTittle" style="width: 110px;">
+                            <a href="fileView/{{doc.id}}">{{doc.fileName}}</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="span2">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Actividad</li>
-                    <li><a href="#">Todos los eventos</a></li>
-                    <li><a href="#">Entradas</a></li>
-                    <li><a href="#">Modificaciones </a></li>
-                    <li><a href="#">Visualizaciones</a></li>
-                </ul>
-            </div>
         </div>
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Subir un documento</h3>
+            </div>
+            <form class="form-search" method="post" action="${pageContext.request.contextPath}/view/guardarFichero" enctype="multipart/form-data" commandName="fileFormBean">
+                <input type="file" id="file" name="file" class="input-medium search-query">
+                <div style="height: 40px;">&nbsp;</div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="submit" class="btn">Subir</button>
+                </div>
+            </form>
+        </div>
+
 
     </tiles:putAttribute>
 </tiles:insertDefinition>

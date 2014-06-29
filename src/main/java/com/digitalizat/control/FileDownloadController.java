@@ -8,6 +8,7 @@ package com.digitalizat.control;
 import com.digitalizat.business.TdocManager;
 import com.digitalizat.user.dao.User;
 import com.digitalizat.document.dao.Document;
+import com.digitalizat.properties.ServerProperties;
 import com.digitalizat.util.ThumbnailCreator;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,6 +37,9 @@ public class FileDownloadController {
     
     @Autowired
     TdocManager tdocManager;
+    
+    @Autowired
+    ServerProperties serverProperties;
 
     @RequestMapping(value = "obtenerFichero/{codigo}")
     public void obtenerFichero(@PathVariable(value="codigo") String codigo, HttpServletResponse response) throws FileNotFoundException, IOException, Exception {
@@ -75,13 +79,13 @@ public class FileDownloadController {
         } else {
             usuarioLogado = (User) sesion.getAttribute("user");
         }
-        File localFile = new File("/Volumes/datos/docStore/" + file.getOriginalFilename());
+        File localFile = new File(serverProperties.getRutaGestorDocumental() + file.getOriginalFilename());
         FileOutputStream os;
         os = new FileOutputStream(localFile);
         os.write(file.getBytes());
 
         Document doc = new Document();
-        doc.setBasePath("/Volumes/datos/docStore/");
+        doc.setBasePath(serverProperties.getRutaGestorDocumental());
         doc.setPathdoc("/"+usuarioLogado.getBranch().getId()+"/");
         doc.setBranch(usuarioLogado.getBranch());
         doc.setFileName(file.getOriginalFilename());

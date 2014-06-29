@@ -1,9 +1,9 @@
-body{
-    height:100%;
+body {
+    
+   
 }
-html{
-    height:100%;
-
+.sidebar-nav {
+    padding: 9px 0;
 }
 .granIbonico {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -54,6 +54,8 @@ iframe {
     box-shadow: 3px 3px 0 -1px #DDDDDD;
     padding: 1px;
     vertical-align: top;
+    width: 110px; 
+    height: 150px;
 }
 .docTittle{
     color: #222222;
@@ -65,5 +67,20 @@ iframe {
 .miniatura:hover{
     box-shadow: 6px 6px 0 -2px #DDDDDD;
     cursor: pointer;
-    
+
+}
+
+
+.loadingFrame{
+    position: absolute; 
+    left: 0px; 
+    top: 0px; 
+    height: 100%;
+    width: 100%; 
+    background-color: black;
+    opacity:0.8;
+    background: #ffffff url(../img/loading.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
 }

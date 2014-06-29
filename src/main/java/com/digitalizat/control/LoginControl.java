@@ -7,6 +7,7 @@ package com.digitalizat.control;
 
 import com.digitalizat.business.ACLMananger;
 import com.digitalizat.organization.dao.Organization;
+import com.digitalizat.properties.ServerProperties;
 import com.digitalizat.user.dao.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,6 +29,9 @@ public class LoginControl {
     
     @Autowired
     ACLMananger aclManager;
+    
+    @Autowired
+    ServerProperties serverProperties;
 
     @RequestMapping(value = "doLogin")
     public @ResponseBody User doLogin(@RequestParam(value = "user", required = true) String user, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws Exception {
@@ -51,13 +55,16 @@ public class LoginControl {
     }
 
     @RequestMapping(value = "saveUser")
-    public @ResponseBody User saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "org", required = true) String organizacion, @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException {
+    public @ResponseBody Boolean saveUser(@RequestParam(value = "user", required = true) String user,@RequestParam(value = "org", required = true) String organizacion, @RequestParam(value = "pwd", required = true) String pwd,@RequestParam(value = "inv", required = true) String inv, HttpServletRequest request) throws NoSuchAlgorithmException, NoSuchProviderException, Exception {
         System.out.println("HomeController: Passing through...");
         HttpSession sesion = request.getSession();
 
         Organization org = new Organization();
         org.setName(organizacion);
         aclManager.addOrganization(org);
+        if(!inv.equals(serverProperties.getCodigoInvitado())){
+            throw new Exception("hahahhaja no has dicho la palabra correcta!!!");
+        }
 
         sesion.setAttribute("logged", true);
         User usuario = new User();
@@ -71,7 +78,7 @@ public class LoginControl {
         sesion.setAttribute("user", usuario);
         sesion.setAttribute("acronimo", user);
 
-        return usuario;
+        return true;
     }
 
     private String toHexadecimal(byte[] digest) {
@@ -87,11 +94,10 @@ public class LoginControl {
     }
 
     @RequestMapping(value = "doLoginClose")
-    public @ResponseBody
-    Integer doLoginClose(HttpServletRequest request) {
+    public String doLoginClose(HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         sesion.invalidate();
-        return 1;
+        return "/plataforma/signin";
     }
 
     @RequestMapping(value = "viewSignin")

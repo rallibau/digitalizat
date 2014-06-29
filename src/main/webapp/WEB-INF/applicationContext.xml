@@ -67,7 +67,7 @@
     
     
     <bean id="transactionManager"
-        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
@@ -95,6 +95,14 @@
             </list>
         </property>
     </bean> 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:server.properties" />
+    </bean>
+    <context:property-placeholder location="classpath:server.properties" />
+    <bean id="serverProperties" class="com.digitalizat.properties.ServerProperties">
+        <property name="rutaGestorDocumental" value="${rutaGestorDocumental}" />
+        <property name="codigoInvitado" value="${codigoInvitado}" />
+    </bean>
     <!-- global-method-security pre-post-annotations="enabled" />
     <global-method-security secured-annotations="enabled" / -->
 </beans>

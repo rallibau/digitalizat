@@ -26,7 +26,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>view/portada</welcome-file>
+        <welcome-file>view/viewSignin</welcome-file>
     </welcome-file-list>
     <!-- Load Spring Contexts -->
     <listener>

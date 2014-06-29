@@ -35,4 +35,13 @@ public class ACLController {
         
     } 
     
+    @RequestMapping(value = "getUsersOrg")
+    public @ResponseBody List<User> getUsersOrg(HttpServletRequest request){
+        HttpSession sesion = request.getSession();
+        User logado = (User)sesion.getAttribute("user");
+        
+        return aclManager.getAllOrgUsers(logado.getBranch().getId());
+        
+    }
+    
 }

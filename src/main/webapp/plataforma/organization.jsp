@@ -11,80 +11,76 @@
         Escritorio
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
-        <div style="text-align: center; width: 100%">
-            <div style="max-width: 1024px; margin: auto; text-align: left;">
-                <div class="span12">
-                    <h3>${sessionScope.user.branch.organization.name}</h3>
-                    <p class="lead">Define tu organización, personas,sedes, roles...</p>
-                    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                        <li class="active">
-                            <a href="#personas" data-toggle="tab">Personas</a>
-                        </li>
-                        <li>
-                            <a href="#roles" data-toggle="tab">Roles</a>
-                        </li>
-                        <li>
-                            <a href="#equipos" data-toggle="tab">Equipos</a>
-                        </li>
-                        <li>
-                            <a href="#sedes" data-toggle="tab">Sedes</a>
-                        </li>
-                        <li>
-                            <a href="#servicios" data-toggle="tab">Servicios</a>
-                        </li>
+        <ul id="nav">
+            <li alt="ddfdfdf"><a href="#newUser" role="button" data-toggle="modal"><i class="icon-plus icon-white"></i></a></li>
+            <li alt="ddfdfdf"><a href="#newUser" role="button" data-toggle="modal"><i class="icon-folder-close icon-white"></i></a></li>
+            <li alt="ddfdfdf"><a href="#newUser" role="button" data-toggle="modal"><i class="icon-search icon-white"></i></a></li>
+        </ul>
+        <h3>${sessionScope.user.branch.organization.name}</h3>
+        <p class="lead">Define tu organización, personas,sedes, roles...</p>
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active">
+                <a href="#personas" data-toggle="tab">Personas</a>
+            </li>
+            <li>
+                <a href="#roles" data-toggle="tab">Roles</a>
+            </li>
+            <li>
+                <a href="#equipos" data-toggle="tab">Equipos</a>
+            </li>
+            <li>
+                <a href="#sedes" data-toggle="tab">Sedes</a>
+            </li>
+            <li>
+                <a href="#servicios" data-toggle="tab">Servicios</a>
+            </li>
 
-                    </ul>
-                    <div  id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="personas" ng-controller="getAllOrgUsers">
-                            <form class="form-search">
-                                <div class="input-append" style="width: 100%;text-align: right;">
-                                    <input type="text" class="span4 search-query">
-                                    <button type="submit" class="btn">Buscar persona</button>
-                                </div>
-                            </form>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Apellidos</th>
-                                        <th>Acronimo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="user in users">
-                                        <td>{{user.id}}</td>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.surname}}</td>
-                                        <td>{{user.email}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div style="width: 100%;text-align: right;">
-                                <a href="#newUser" role="button" class="btn" data-toggle="modal"><i class="icon-plus"></i>Añadir persona</a>
-                            </div>
-                        </div><!--personas-->
-                        <div class="tab-pane" id="roles">
-                            <h1>Roles</h1>
-                            <p>Roles de la organizacion</p>
-                        </div><!--roles-->
-                        <div class="tab-pane" id="equipos">
-                            <h1>Equipos</h1>
-                            <p>Equipos de la organizacion</p>
-                        </div><!--equipos-->
-                        <div class="tab-pane" id="sedes">
-                            <h1>Sedes</h1>
-                            <p>Sedes de la organizacion</p>
-                        </div><!--roles-->
-                        <div class="tab-pane" id="servicios">
-                            <h1>Servicios</h1>
-                            <p>Servicios de la organizacion</p>
-                        </div><!--roles-->
-                    </div><!--tabcontent-->
-                </div>
-            </div>
-        </div>
-
+        </ul>
+        <div  id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="personas" ng-controller="getAllOrgUsers">
+                <form class="form-search">
+                    <div class="input-append" style="width: 100%;text-align: right;">
+                        <input type="text" class="span4 search-query">
+                        <button type="submit" class="btn">Buscar persona</button>
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Acronimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div><!--personas-->
+            <div class="tab-pane" id="roles">
+                <h1>Roles</h1>
+                <p>Roles de la organizacion</p>
+            </div><!--roles-->
+            <div class="tab-pane" id="equipos">
+                <h1>Equipos</h1>
+                <p>Equipos de la organizacion</p>
+            </div><!--equipos-->
+            <div class="tab-pane" id="sedes">
+                <h1>Sedes</h1>
+                <p>Sedes de la organizacion</p>
+            </div><!--roles-->
+            <div class="tab-pane" id="servicios">
+                <h1>Servicios</h1>
+                <p>Servicios de la organizacion</p>
+            </div><!--roles-->
+        </div><!--tabcontent-->
         <div id="newUser" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

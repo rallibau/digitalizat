@@ -14,7 +14,7 @@
 
 </div>
 
-<script src="http://code.jquery.com/jquery.js"></script>
+<!-- script src="http://code.jquery.com/jquery.js"></script -->
 <script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script src="<%= request.getContextPath()%>/js/angular.min.js"></script>
 <script src="<%= request.getContextPath()%>/js/digitalizat.common.controllers.js"></script>

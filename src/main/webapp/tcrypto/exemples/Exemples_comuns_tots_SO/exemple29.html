@@ -1,0 +1,305 @@
+<HTML>
+<HEAD>
+
+<TITLE> Test Eina Web de Signatura-e - exemple 29 </TITLE>
+<META NAME="Author" CONTENT="aciffone@aoc.cat">
+<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="./js_css/YUI/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="./js_css/YUI/container.css" />
+<script type="text/javascript" src="./js_css/YUI/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="./js_css/YUI/animation-min.js"></script>
+<script type="text/javascript" src="./js_css/YUI/dragdrop-min.js"></script>
+<script type="text/javascript" src="./js_css/YUI/container-min.js"></script>
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+// Atributs retornats per PSIS
+var psisAttributes =new Array("urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:Version",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SerialNumber",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:Signature",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SignatureAlgorithm",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:IssuerDistinguishedName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:NotBefore",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:NotAfter",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectPublicKeyAlgorithm",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectPublicKey",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:Extensions",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:IssuerDistinguishedName:commonName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectEmail",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:CertificatePolicies",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:KeyUsages",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:organizationName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:serialNumber",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:commonName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:givenName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:surname",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:title",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:organizationUnitName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:countryName",
+"urn:oasis:names:tc:dss:1.0:profiles:XSS:certificateAttributes:SubjectDistinguishedName:stateOrProvinceName",
+"urn:catcert:psis:certificateAttributes:KeyOwnerNIF",
+"urn:catcert:psis:certificateAttributes:LegalEntityCIF",
+"urn:catcert:psis:certificateAttributes:LegalEntityGlobalCIF",
+"urn:catcert:psis:certificateAttributes:Department",
+"urn:catcert:psis:certificateAttributes:SubjectName",
+"urn:catcert:psis:certificateAttributes:QualitativeUsageLimitations",
+"urn:catcert:psis:certificateAttributes:QuantitativeUsageLimitations",
+"urn:catcert:psis:certificateAttributes:ClassificationLevel",
+"urn:catcert:psis:certificateAttributes:Title",
+"urn:catcert:psis:certificateAttributes:Attribute",
+"urn:catcert:psis:certificateAttributes:VinculatedCompanyCIF",
+"urn:catcert:psis:certificateAttributes:VinculatedCompanyName",
+"urn:catcert:psis:certificateAttributes:VinculatedPersonFullName",
+"urn:catcert:psis:certificateAttributes:VinculatedPersonName",
+"urn:catcert:psis:certificateAttributes:VinculatedPersonNIForNIE",
+"urn:catcert:psis:certificateAttributes:VinculatedPersonSurname",
+"urn:catcert:psis:certificateAttributes:issuerCA",
+"urn:catcert:psis:certificateAttributes:UsageProperties",
+"urn:catcert:psis:certificateAttributes:RegisterJoint",
+"urn:catcert:psis:certificateAttributes:LegalDocumentType",
+"urn:catcert:psis:certificateAttributes:CertificateType",
+"urn:catcert:psis:certificateAttributes:CertIssuerName",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationCIF",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationName",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationInitials",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationNumber",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationZone",
+"urn:catcert:psis:certificateAttributes:professionalAssociations:ProfessionalAssociationEmployeeNumber",
+"urn:catcert:psis:certificateAttributes:notaries:AuthorizingNotary",
+"urn:catcert:psis:certificateAttributes:notaries:EntitlementsRegistryLocationData",
+"urn:catcert:psis:certificateAttributes:notaries:RepresentationDocumentLocationData");
+
+// FUNCIONS DE CRIDA I RETORN QUE POT GENERAR LAPPLET ***********************
+
+function onSignOK(signature) {
+	alert('Signatura generada correctament:\n' + signature);
+}
+
+function onMultiSignOK(signature) {
+	alert('Signatura generada per l\'event final:\n' + signature);
+}
+
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+
+function onSignLoad() {
+	// amaguem el panell de carrega
+	YAHOO.example.container.wait.hide();
+	// mostrem el msg conforme l applet s ha carregat correctament
+	alert('Applet de signatura carregat correctament');
+}
+
+function onLoadError(msg) {
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+
+function setAppletParam(name,value) {
+	try{
+		document.appletcatcert.set(name,value);
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].set(name,value);
+	}
+}
+
+function sign() {
+	try{
+		document.appletcatcert.signFromJS();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].signFromJS();
+	}
+}
+
+function inputFileOnChange(){
+	try{
+		document.appletcatcert.openFileDialog();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].openFileDialog();
+	}
+}
+
+function onFileUpload(path){
+	document.getElementById('path').value = path;
+}
+
+/**
+* Reb un map amb les parelles clau, valor on la clau és l'identificador
+* de l'atribut i el value el valor del mateix de la validació del Certificat del signant
+* contra PSIS.
+*	Aquesta funció només es crida en signatures de tipus pdf sempre i quan l'applet tingui els paràmetres
+*	pdf_dinamic_signature_image	= true i pdf_visible_signature = true
+*
+*	Això permet realitzar comprovacions sobre els valors dels atributs i actuar en conseqüencia canviant per exemple la
+*	imatge de la signatura de l'applet fent una crida a setAppletParam(name,value) especificant com a name "pdf_signature_image" i
+*	com a value la imatge codificada en base64.
+*
+*	També permet abortar l'execució de la signatura fent una crida a setAppletParam(name,value) especificant com a name "abort_pdf_sign_operation" i
+*	com a value = "true"
+*
+*
+**/
+function pdfDinamicSignatureImage(map){
+
+	// com a mostra pintem tots els valors retornats per PSIS a la validació del certificat
+	// del signant
+	alert("Mostrem tots els atributs retornats per PSIS a la funció pdfDinamicSignatureImage");
+
+	for(var i=0;i<psisAttributes.length;i++){
+		alert(psisAttributes[i] + "\n\n value \n\n" + map.get(psisAttributes[i]));
+	}
+	
+	
+	// podriem implementar una casuística per a decidir si quina imatge posem
+	// a l'exemple posem la imatge directament
+	setAppletParam("pdf_signature_image","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");
+	
+	// si volguessim abortar el procés descomentem la linia
+	// setAppletParam("abort_pdf_sign_operation","true");
+
+}
+
+
+// *********************** FUNCIONS DE CRIDA I RETORN QUE POT GENERAR LAPPLET 
+
+// mostra el panell de carrega de les llibreries de l applet
+function showLoadPanel(){
+
+		YAHOO.namespace("example.container");
+        var content = document.getElementById("content");
+        
+        content.innerHTML = "";
+
+        if (!YAHOO.example.container.wait) {
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4999,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Carregant l'eina web de signatura-e");
+            YAHOO.example.container.wait.setBody("<img src=\"images/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(content);
+
+        }
+   
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+		
+}
+
+
+
+</SCRIPT>
+</HEAD>
+<BODY class="yui-skin-sam" onload="showLoadPanel();">
+<br/>&nbsp Pàgina de proves de les funcionalitats de l'<b>eina web de signatura-e</b>:
+<br/>&nbsp - Aquesta prova mostra un loadPanel durant la carrega dels jars, que desapareix un cop carregat l'applet.
+<br/>&nbsp - Realitza una signatura de tipus CAdES-BES detached dins d'un PDF amb la signatura visible a la primera plana.
+<br/>&nbsp - Permet setejar de forma dinàmica la imatge de la signatura del PDF (veure mètode javascript pdfDinamicSignatureImage) </br>
+
+
+<div id="content"></div>
+</br>
+<center>
+	<div  style="background: #eff2f2; -webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					border-radius: 5px;
+					margin-bottom: 8px;
+					height: 120px;
+					text-align: center;
+					align: center;
+					width: 60%;
+					vertical-align: middle;
+					border-style:solid;
+					border-color:#a8a8a8;">
+		</br>
+		<div><b>Document a signar:</b></div>
+		</br>
+		<div>
+			<form>
+				<input type="button" value="examinar..." onclick="inputFileOnChange();"/>
+				<input type="xhidden" id="path" name="path" size="100"/>
+			</form>
+		</div>
+		<div><input type="button" value="Signar" onclick="sign();"/></div>
+		<div id="appletObj">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+				codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+				width="0" height="0" id="appletcatcert">
+				<param name = "code" value = "org.catcert.AppletSignatura">
+				<param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+				<param name = "mayscript" value = "true">
+				<param name = "scriptable" value = "true">
+				<param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "0">
+				<param name = "signature_mode" value = "24">
+				<param name = "doc_type" value = "2">
+				<param name = "local_file" value = "true">
+				<param name = "pdf_signature_rectangle" value = "100 100 200 200 1">
+				<param name = "pdf_visible_signature" value = "true">
+				<param name = "pdf_dinamic_signature_image" value = "true">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					width = "0" height = "0"
+					name = "appletcatcert"
+					mayscript = "true"
+					scriptable = "true"
+					keystore_type = "0"
+					signature_mode = "24"
+					doc_type = "2"
+					local_file = "true"
+					pdf_signature_rectangle = "100 100 200 200 1"
+					pdf_visible_signature = "true"
+					pdf_dinamic_signature_image = "true"
+					>
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permès executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+					</noembed>
+				</embed>
+				</comment>
+			</object>
+		</div>
+	</div>
+</center>
+
+</BODY>
+</HTML>

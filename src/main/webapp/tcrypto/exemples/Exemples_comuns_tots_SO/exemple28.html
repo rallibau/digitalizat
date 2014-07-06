@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <TITLE> Test Eina Web de Signatura-e - exemple 28 </TITLE>
+	<META NAME="Author" CONTENT="aciffone@aoc.cat">
+	<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e.">
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+	<!-- includes per al panell de carrega -->
+	<link rel="stylesheet" type="text/css" href="./js_css/YUI/fonts-min.css" />
+	<link rel="stylesheet" type="text/css" href="./js_css/YUI/container.css" />
+	<script type="text/javascript" src="./js_css/YUI/yahoo-dom-event.js"></script>
+	<script type="text/javascript" src="./js_css/YUI/animation-min.js"></script>
+	<script type="text/javascript" src="./js_css/YUI/dragdrop-min.js"></script>
+	<script type="text/javascript" src="./js_css/YUI/container-min.js"></script>
+	<style type="text/css">
+	/*margin and padding on body element
+	can introduce errors in determining
+	element position and are not recommended;
+	we turn them off as a foundation for YUI
+	CSS treatments. */
+	body {
+		margin:0;
+		padding:0;
+	}
+	</style>
+	
+	<!-- llibreries scriptacolous & prototype -->
+	<script type="text/javascript" src="./js_css/scriptaculous/prototype.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/builder.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/effects.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/controls.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/dragdrop.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/slider.js"></script>
+	<script type="text/javascript" src="./js_css/scriptaculous/scriptaculous.js"></script>
+	
+	
+<!-- Javascript amb les crides i retorns de lapplet de signatura -->	
+<SCRIPT LANGUAGE="JavaScript">
+
+// FUNCIONS DE RETORN QUE POT GENERAR LAPPLET ***********************
+
+function onSignOK(signature) {
+	alert('Signatura generada correctament:\n' + signature);
+}
+function onMultiSignOK(signature) {
+	alert('Signatura generada per l\'event final:\n' + signature);
+}
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+
+function onLoadError(msg) {
+	// en cas que hi hagi algun error durant la carrega tambe amaguem el loadPanel
+	YAHOO.example.container.wait.hide();
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+
+// *********************** FUNCIONS DE RETORN QUE POT GENERAR LAPPLET 
+
+/** 
+ * Mostra el panell de espera durant la carrega de les llibreries de l applet. 
+  **/
+function showLoadPanel(){
+
+		YAHOO.namespace("example.container");
+        var content = document.getElementById("content");
+        
+        content.innerHTML = "";
+
+        if (!YAHOO.example.container.wait) {
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4999,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Carregant l'eina web de signatura-e");
+            YAHOO.example.container.wait.setBody("<img src=\"images/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(content);
+
+        }
+   
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+		
+}
+/**
+ * Crida per setejar de forma dinamica amb js els parametres de lapplet.
+**/
+function setAppletParam(name,value) {
+	try{
+		document.appletcatcert.set(name,value);
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].set(name,value);
+	}
+}
+
+/**
+  *  En el mode embedded (parametre embedded = true), aquesta es la funcio que reb el retorn de lapplet indicant que la carrega
+  * del mateix sha realitzat correctament, i rebent com a parametre els alias de les claus del magatzem configurat
+  * amb els que podrem realitzar la signatura. (substitueix el onSignLoad de lapplet amb mode popup).
+ *  Aquest es nomes un exemple de com omplir un combo amb els alies seleccionats, pero es poden pintar com es vulgui.
+  *
+**/
+function onReturnCerts(value){
+
+	// omplim el combobox amb els alies retornats per lapplet
+	var select = document.getElementById('comboAlies');
+	
+	if(value[0] != undefined && value[0].length != 1){
+		for(i=0;i<value.length;i++){
+			var elOptNew = document.createElement('option');
+			elOptNew.text = value[i];
+			elOptNew.value = value[i];
+			try{
+				select.add(elOptNew);
+			}catch(Ex){
+				select.appendChild(elOptNew);
+			}
+		}
+	}else{
+			var elOptNew = document.createElement('option');
+			elOptNew.text = value;
+			elOptNew.value = value;
+			try{
+				select.add(elOptNew);
+			}catch(Ex){
+				select.appendChild(elOptNew);
+			}
+	}
+
+	// mostra el div
+	Effect.Grow('divAlies',{duration:2});
+	
+	// un cop pintats els alies per a signar amaguem el panell de carrega
+	YAHOO.example.container.wait.hide();
+	
+	// mostrem el msg conforme l applet s ha carregat correctament
+	alert('Applet de signatura carregat correctament');
+	
+}
+
+/**
+ * Funció que recupera l'alias del combo i invoca el mètode d'exportació de certificats de l'applet
+**/
+function exportCertificate(){
+
+	// recuperem lalies seleccionat
+	var alies = document.getElementById('comboAlies').value;
+	
+	alert(alies);
+	
+	if(alies == "" || alies == null){
+		alert('Per a poder signar ha de seleccionar un àlies');
+	}
+	
+	// invoquem lapplet passant lalies seleccionat
+	exporta(alies);
+}
+
+/**
+ * Funció que invoca l'applet per a recuperar el certificat seleccionat
+**/
+function exporta(alies){
+
+	// invoquem lapplet passant lalies seleccionat
+	try{
+		document.appletcatcert.exportCertFromJS(alies);
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].exportCertFromJS(alies);
+	}
+}
+
+/**
+* Funció que captura el callback de l'applet amb el certificat codificat en Base64
+**/
+function onCertExported(certificate){
+
+	// mostrem el certificat en un alert
+	alert('Certificat exportat en base64: \n' + certificate);
+
+}
+
+
+</SCRIPT>
+
+</head>
+<!-- onload realitza la crida per a que es mostri el panell de carrega -->
+<BODY class="yui-skin-sam" onload="showLoadPanel();">
+
+<br/>&nbsp Pàgina de proves de les funcionalitats de l'<b>eina web de signatura-e</b>:
+<br/>&nbsp - Aquesta prova mostra l'applet embedded en la plana web, de manera que la tria de certificats es fa des de un combobox de la pròpia pàgina i no a través d'un pop-up
+<br/>&nbsp - Mostra un loadPanel durant la carrega dels jars, que desapareix un cop carregat l'applet.
+<br/>&nbsp - Aquesta plana no realitza una signatura sinó que permet exportar el certificat seleccionat en base64.
+<br/>&nbsp - El retorn del certificat per part de l'applet és recupera a la funció javascript <I>onCertExported()</I> </br>
+
+<!-- divon es mostrara el loadpanel de la carrega de lapplet -->
+<div id="content"></div>
+
+<form name="appletCATCertForm">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			    codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+			    width="0" height="0" id="appletcatcert">
+			    <param name = "code" value = "org.catcert.AppletSignatura">
+			    <param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+			    <param name = "mayscript" value = "true">
+   				<param name = "scriptable" value = "true">
+			    <param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "0">
+				<param name = "signature_mode" value = "50">
+				<param name = "embedded" value = "true">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					width = "0" height = "0"
+					name = "appletcatcert"
+					mayscript = "true"
+					scriptable = "true"
+					keystore_type = "0"
+					signature_mode = "50"
+					embedded="true">
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permés executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+			        </noembed>
+				</embed>
+			    </comment>
+			</object>
+</form>
+<center>
+<!--Div q mostrara els certificats per a signar. Es la part embedded de lapplet -->
+	<div id="divAlies" style="display:none;padding: 3px;
+							  background: #eff2f2;
+							  -webkit-border-radius: 5px;
+							  -moz-border-radius: 5px;
+							  border-radius: 5px;
+							  margin-bottom: 8px;
+							  width: 500px;
+							  height: 120px;
+							  text-align: center;
+							  vertical-align: middle;
+							  border-style:solid;
+							  border-color:#a8a8a8;">
+		<font size="4" face="arial">Eina web de signatura-e</font>
+		</br>Exportació de certificats
+		<div style="margin-top: 25px;">
+			<select id="comboAlies" style="width:400px;" />
+			<input type="button" name="sig_button" value="Exporta" onclick="exportCertificate()">
+		</div>
+	</div>
+<center>
+</body>
+</html>

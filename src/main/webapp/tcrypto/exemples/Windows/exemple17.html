@@ -1,0 +1,141 @@
+﻿<HTML>
+<HEAD>
+<TITLE> Test Eina Web de Signatura-e - exemple 17 </TITLE>
+<META NAME="Author" CONTENT="Suport tècnic CATCert">
+<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+function onSignOK(signature) {
+	alert('Signatura generada correctament:\n' + signature);
+}
+function onMultiSignOK(signature) {
+	alert('Signatura generada per l\'event final:\n' + signature);
+}
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+function onSignLoad() {
+	alert('Applet de signatura carregat correctament');
+}
+function onLoadError(msg) {
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+
+function setAppletParam(name,value) {
+	try{
+		document.appletcatcert.set(name,value);
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].set(name,value);
+	}
+}
+
+function sign() {
+	setAppletParam('document_to_sign', buildXMLForm());
+	try{
+		document.appletcatcert.signFromJS();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].signFromJS();
+	}
+}
+
+function buildXMLForm() {
+	var text = '<?xml version="1.0" encoding="UTF-8"?>\n<Peticio>\n<dades_personals>\n<nom_cognoms>' + document.appletCATCertForm.nom_cognoms.value + '</nom_cognoms>\n<nif>' + document.appletCATCertForm.nif.value + '</nif>\n</dades_personals>\n<ens>' + document.appletCATCertForm.ens.value + '</ens>\n</Peticio>';
+	//alert('Document a signar:\n\n' + text);
+	document.appletCATCertForm.xml.value = text;
+	return text;
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+</br>
+Signatura XAdES-T enveloped.</br>
+Certificats del keyStore de java (JKS) especificat per paràmetre.</br>
+El paràmetre d'entrada és un XML generat amb les dades del formulari de l'HTML. Primer el previsualitzarem i després el signarem.</br>
+La sortida serà un camp del formulari.</br>
+No s'ha definit ni el color de fons ni el logo, i per tant es mostren els valors per defecte (fons blanc i logo CATCert).</br>
+L'applet es crida utilitzant un botó html que utilitzarà Javascript per invocar-lo.</br>
+</br>
+<form name="appletCATCertForm">
+	<table align="center" border="0" cellspacing="0" cellpadding="0">		
+		<tr><td>
+		<table border="0">
+		        <tr>
+		        	<td>Nom i Cognoms:</td>
+		        	<td><input type="text" value="" name="nom_cognoms" size="50"></td>
+		        </tr>
+				<tr>
+		        	<td>NIF:</td>
+		        	<td><input type="text" value="" name="nif" size="15"></td>
+		        </tr>
+				<tr>
+		        	<td>Ens:</td>
+		        	<td><input type="text" value="" name="ens" size="50"></td>
+		        </tr>
+				<tr><td><input type="button" name="sig_button" value="Signa" onclick="sign()"></td></tr>
+				<tr>
+			        <td>XML a signar:</td>
+		        	<td><textarea name="xml" style="width:350px" cols="80" rows="10"></textarea></td>
+		        </tr>
+		        <tr>
+			        <td>Signatura generada:</td>
+		        	<td><textarea name="result" style="width:350px" cols="80" rows="10"></textarea></td>
+		        </tr>
+		    </table>
+		</td></tr>
+		<tr><td align = "center">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			    codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+			    width="0" height="0" id="appletcatcert">
+			    <param name = "code" value = "org.catcert.AppletSignatura">
+			    <param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+			    <param name = "mayscript" value = "true">
+   				<param name = "scriptable" value = "true">
+			    <param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "5">
+				<param name = "signature_mode" value = "13">
+				<param name = "doc_type" value = "7">
+				<param name = "form_fill" value = "true">
+				<param name = "form_fill_field" value = "result">
+				<param name = "signButtonCaption" value = "Signa">
+				<param name = "jks_file" value = "//mart/aoc/Tecnica/Suport/AppletSignaturaCATCert/2.5.3/exemples/Windows/appletJksProves.jks">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					width = "0" height = "0"
+					name = "appletcatcert"
+					mayscript = "true"
+					scriptable = "true"
+					keystore_type = "5"
+					signature_mode = "13"
+					doc_type = "7"
+					form_fill = "true"
+					form_fill_field = "result"
+					signButtonCaption ="Signa"
+					jks_file = "//mart/aoc/Tecnica/Suport/AppletSignaturaCATCert/2.5.3/exemples/Windows/appletJksProves.jks">
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permès executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+			        </noembed>
+				</embed>
+			    </comment>
+			</object>
+		</td></tr>
+	</table>
+</form>
+</BODY>
+</HTML>

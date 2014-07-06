@@ -8,10 +8,12 @@ package com.digitalizat.control;
 import com.digitalizat.business.ACLMananger;
 import com.digitalizat.organization.dao.Organization;
 import com.digitalizat.properties.ServerProperties;
+import com.digitalizat.resource.dao.Resource;
 import com.digitalizat.user.dao.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author rallibau
  */
 @Controller
-public class LoginControl {
+public class TaclController {
     
     @Autowired
     ACLMananger aclManager;
@@ -119,5 +121,51 @@ public class LoginControl {
             return "/plataforma/newUser";
         }
     }
+    
+    @RequestMapping(value = "users")
+    public String users(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
+            return "/plataforma/users";
+        } else {
+            return "/plataforma/signin";
+        }
+    }
+    
+    @RequestMapping(value = "organization")
+    public String organization(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
+            return "/plataforma/organization";
+        } else {
+            return "/plataforma/users";
+        }
+    }
+    @RequestMapping(value = "myself")
+    public String mySelf(HttpServletRequest request) {
+        HttpSession sesion = request.getSession();
+        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
+            return "/plataforma/myself";
+        } else {
+            return "/plataforma/users";
+        }
+    }
+    @RequestMapping(value = "getUserMenu")
+    public @ResponseBody List<Resource> getUserMenu(HttpServletRequest request){
+        HttpSession sesion = request.getSession();
+        User logado = (User)sesion.getAttribute("user");
+        return aclManager.getAllResource(logado.getId());
+        
+    } 
+    
+    @RequestMapping(value = "getUsersOrg")
+    public @ResponseBody List<User> getUsersOrg(HttpServletRequest request){
+        HttpSession sesion = request.getSession();
+        User logado = (User)sesion.getAttribute("user");
+        
+        return aclManager.getAllOrgUsers(logado.getBranch().getId());
+        
+    }
+    
 
 }

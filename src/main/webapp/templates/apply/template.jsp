@@ -27,56 +27,24 @@ Released   : 20130801
         <link href="<%= request.getContextPath()%>/css/bootstrap-responsive.css" rel="stylesheet" />    
         <link href="<%= request.getContextPath()%>/css/digitalizat.css" rel="stylesheet" />
         <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-        <style type="text/css">
-
-            /* Sticky footer styles
-            -------------------------------------------------- */
-
-           
-            /* Custom page CSS
-            -------------------------------------------------- */
-            /* Not required for template or sticky footer method. */
-
-            .container {
-                width: auto;
-                max-width: 680px;
-            }
-            .container .credit {
-                margin: 20px 0;
-            }
-            .form-signin {
-                max-width: 300px;
-                padding: 19px 29px 29px;
-                margin: 0 auto 20px;
-                margin-top: 50px;
-                background-color: #fff;
-                border: 1px solid #e5e5e5;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            }
-            .form-signin .form-signin-heading,
-            .form-signin .checkbox {
-                margin-bottom: 10px;
-            }
-            .form-signin input[type="text"],
-            .form-signin input[type="password"] {
-                font-size: 16px;
-                height: auto;
-                margin-bottom: 15px;
-                padding: 7px 9px;
-            }
-
-        </style>
-
+        <script src="<%= request.getContextPath()%>/ferroMenu/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/ferroMenu/jquery.ferro.ferroMenu.css" type="text/css" />
+        <script src="<%= request.getContextPath()%>/ferroMenu/jquery.ferro.ferroMenu-1.2.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#nav").ferroMenu({
+                    position: "center-top",
+                    delay: 50,
+                    rotation: 720,
+                    margin: 45
+                });
+            });
+        </script>
     </head>
     <body ng-app>
         <tiles:insertAttribute name="header" />
-        <div class="container-fluid" style="padding: 40px 0;">
-            <div class="row-fluid">
+        <div class="container">
+            <div class="row">
                 <tiles:insertAttribute name="body" />
             </div>
         </div>

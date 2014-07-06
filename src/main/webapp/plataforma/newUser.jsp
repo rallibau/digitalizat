@@ -90,7 +90,7 @@
                     success: function(data)
                     {
                         if (data) {
-                            location.reload();
+                            window.location.replace("${pageContext.request.contextPath}/view/viewDeskTop");
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

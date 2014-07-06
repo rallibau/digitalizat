@@ -7,7 +7,7 @@ function seeFolderController($scope, $http) {
     $('#topdiv').show();
     $http({method: 'GET', url: 'getDocList.server'}).
             success(function(data, status, headers, config) {
-                $scope.docs = data;
+                $scope.folderInfo = data;
                 $('#topdiv').hide();
             }).
             error(function(data, status, headers, config) {

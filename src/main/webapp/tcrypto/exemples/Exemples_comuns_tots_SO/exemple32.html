@@ -1,0 +1,236 @@
+<HTML>
+<HEAD>
+
+<TITLE> Test Eina Web de Signatura-e - exemple 32 </TITLE>
+<META NAME="Author" CONTENT="aciffone@aoc.cat">
+<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="./js_css/YUI/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="./js_css/YUI/container.css" />
+<script type="text/javascript" src="./js_css/YUI/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="./js_css/YUI/animation-min.js"></script>
+<script type="text/javascript" src="./js_css/YUI/dragdrop-min.js"></script>
+<script type="text/javascript" src="./js_css/YUI/container-min.js"></script>
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+// FUNCIONS DE CRIDA I RETORN QUE POT GENERAR LAPPLET ***********************
+
+function onSignOK(signature) {
+	alert('Signatura generada correctament:\n' + signature);
+}
+
+function onMultiSignOK(signature) {
+	alert('Signatura generada per l\'event final:\n' + signature);
+}
+
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+
+function onSignLoad() {
+	// amaguem el panell de carrega
+	YAHOO.example.container.wait.hide();
+	// mostrem el msg conforme l applet s ha carregat correctament
+	alert('Applet de signatura carregat correctament');
+}
+
+function onLoadError(msg) {
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+
+function setAppletParam(name,value) {
+	try{
+		document.appletcatcert.set(name,value);
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].set(name,value);
+	}
+}
+
+function sign() {
+	try{
+		document.appletcatcert.signFromJS();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].signFromJS();
+	}
+}
+
+function inputFileOnChange(){
+	try{
+		document.appletcatcert.openFileDialog();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].openFileDialog();
+	}
+}
+
+function onFileUpload(path){
+	document.getElementById('path').value = path;
+}
+
+/**
+* Crida per a obtenir el certificat del signant
+**/
+function extractSignCert(){
+	try{
+		document.appletcatcert.getSignCertificate();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].getSignCertificate();
+	}
+}
+
+/**
+* Retorn de l'applet amb el certificat del signant
+**/
+function getSignCert(cert){
+	alert("El certificat del signant és: \n" + cert);
+}
+
+
+// *********************** FUNCIONS DE CRIDA I RETORN QUE POT GENERAR LAPPLET 
+
+// mostra el panell de carrega de les llibreries de l applet
+function showLoadPanel(){
+
+		YAHOO.namespace("example.container");
+        var content = document.getElementById("content");
+        
+        content.innerHTML = "";
+
+        if (!YAHOO.example.container.wait) {
+
+            YAHOO.example.container.wait = 
+                    new YAHOO.widget.Panel("wait",  
+                                                    { width: "240px", 
+                                                      fixedcenter: true, 
+                                                      close: false, 
+                                                      draggable: false, 
+                                                      zindex:4999,
+                                                      modal: true,
+                                                      visible: false
+                                                    } 
+                                                );
+    
+            YAHOO.example.container.wait.setHeader("Carregant l'eina web de signatura-e");
+            YAHOO.example.container.wait.setBody("<img src=\"images/rel_interstitial_loading.gif\"/>");
+            YAHOO.example.container.wait.render(content);
+
+        }
+   
+        // Show the Panel
+        YAHOO.example.container.wait.show();
+		
+}
+
+
+
+</SCRIPT>
+</HEAD>
+<BODY class="yui-skin-sam" onload="showLoadPanel();">
+<br/>&nbsp Pàgina de proves de les funcionalitats de l'<b>eina web de signatura-e</b>:
+<br/>&nbsp - Exemple idem al 31 però que incorpora el paràmetre java_arguments.</br>
+<br/><b>&nbsp - El parametre java_arguments permet especificar paràmetres d'arrencada propis de la JVM, 
+en aquest cas es configura la mida del heap per a poder signar documents més gran de 35Mb en mode attached. 
+Aquest exemple es mostra per a resoldre una casuística molt concreta, ja que no és recomanable realitzar signatures 
+attached sobre documents tant grans per tot el que comporta (mida a disc, rendiment en les validacions i tractament de la signatura etc...).. (veure codi font) 
+</b></br>
+
+<div id="content"></div>
+</br>
+<center>
+	<div  style="background: #eff2f2; -webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					border-radius: 5px;
+					margin-bottom: 8px;
+					height: 130px;
+					text-align: center;
+					align: center;
+					width: 60%;
+					vertical-align: middle;
+					border-style:solid;
+					border-color:#a8a8a8;">
+		</br>
+		<div><b>Document a signar:</b></div>
+		</br>
+		<div>
+			<form>
+				<input type="button" value="examinar..." onclick="inputFileOnChange();"/>
+				<input type="xhidden" id="path" name="path" size="100"/>
+			</form>
+		</div>
+		<div>
+			<input type="button" value="Signar" onclick="sign();"/>
+			<input type="button" value="Obtenir certificat del signant" onclick="extractSignCert();"/>
+		</div>
+		<div id="appletObj">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+				codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+				width="0" height="0" id="appletcatcert">
+				<param name = "java_arguments" value = "-Xmx512m">
+				<param name = "code" value = "org.catcert.AppletSignatura">
+				<param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+				<param name = "mayscript" value = "true">
+				<param name = "scriptable" value = "true">
+				<param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "0">
+				<param name = "signature_mode" value = "24">
+				<param name = "doc_type" value = "2">
+				<param name = "local_file" value = "true">
+				<param name = "pdf_signature_rectangle" value = "100 100 200 200 -1">
+				<param name = "pdf_visible_signature" value = "true">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					java_arguments = "-Xmx512m"
+					width = "0" height = "0"
+					name = "appletcatcert"
+					mayscript = "true"
+					scriptable = "true"
+					keystore_type = "0"
+					signature_mode = "24"
+					doc_type = "2"
+					local_file = "true"
+					pdf_signature_rectangle = "100 100 200 200 -1"
+					pdf_visible_signature = "true"
+					>
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permès executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+					</noembed>
+				</embed>
+				</comment>
+			</object>
+		</div>
+	</div>
+</center>
+
+</BODY>
+</HTML>

@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE> Test Eina Web de Signatura-e - exemple 15 </TITLE>
+<META NAME="Author" CONTENT="Suport Tècnic CATCert">
+<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+function onSignOK(signature) {
+	alert('Signatura generada correctament:\n' + signature);
+}
+function onMultiSignOK(signature) {
+	alert('Signatura generada per l\'event final:\n' + signature);
+}
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+function onSignLoad() {
+	alert('Applet de signatura carregat correctament');
+}
+function onLoadError(msg) {
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+function setAppletParam(name,value) {
+	document.appletcatcert.set(name,value);
+}
+function sign() {
+	try{
+		document.appletcatcert.signFromJS();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].signFromJS();
+	}
+}
+
+// metode per arreglar els problemes que hi ha amb els inputs de tipus file degut als canvis de seguretat
+// de firefox
+function inputFileOnChange(){
+	try{
+		document.appletcatcert.openFileDialog();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].openFileDialog();
+	}
+}
+
+function onFileUpload(path){
+	document.getElementById('path').value = path;
+}
+
+function onFileCancel(){
+	onSignCancel();
+}
+
+</SCRIPT>
+</HEAD>
+<BODY>
+</br>
+Firma XAdES-EPES que sigue el estándar CCI respecto al formato de e-factura aceptado por la AEAT.</br>
+Se pueden ver más detalles sobre el formato en <a href="http://www.asociacioncci.es/Paginas/eFactura_AEAT-CCI.aspx">http://www.asociacioncci.es/Paginas/eFactura_AEAT-CCI.aspx</a></br>
+Para que la firma cumpla con el estándar, incorpora los parámetros "signature_type a 9" (signatura XAdES-BES enveloped),</br>
+"signature_policy", "signature_policy_hash", "signature_policy_qualifier", "signer_role" (puede tomar los valores Emisor/Receptor/Tercero)</br>
+y "protectKeyInfo". Ver el código fuente del HTML para ver más detalles.</br>
+Haría falta completar la firma a la forma XAdES-T en un máximo de 3 días desde el momento de su generación (utilizando la plataforma PSIS) para acabar de cumplir con la normativa.</br>
+El parámetro de entrada es un document XML con la factura que se debe firmar.</br>
+La salida será un documento local con la factura firmada (en el mismo directorio donde se encuentra la factura).</br>
+
+<comment>
+Utilizar los parámetros siguientes si se utiliza política de firma y rol del firmante</br>
+&lt;param name = "signature_policy" value = "1.3.6.1.4.1.15096.9.9.9.9"></br>
+&lt;param name = "signature_policy_hash" value = "gYbYj9w6DofPvCfwqKKwXitsErA="></br>
+&lt;param name = "signature_policy_qualifier" value = "1.3.6.1.4.1.15096"></br>
+&lt;param name = "signer_role" value = "Emisor"></br>
+</comment>
+
+</br>
+<form name="appletCATCertForm">
+	<table align="center" border="0" cellspacing="0" cellpadding="0">		
+		<tr>
+			<td>eFactura a signar:</td>
+			<td>
+				<input type="button" value="examinar..." onclick="inputFileOnChange();">
+				<input type="xhidden" id="path" name="path" size="100">
+			</td>
+		</tr>
+		<tr><td><input type="button" name="sig_button" value="Signa" onclick="sign()"></td></tr>
+		<tr><td align = "center">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			    codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+			    width="0" height="0" id="appletcatcert">
+			    <param name = "code" value = "org.catcert.AppletSignatura">
+			    <param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+			    <param name = "mayscript" value = "true">
+   				<param name = "scriptable" value = "true">
+			    <param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "4">
+				<param name = "signature_mode" value = "9">
+				<param name = "doc_type" value = "2">
+				<param name = "protectKeyInfo" value = "true">
+				<param name = "local_file" value = "true">
+				<param name = "signButtonCaption" value = "Signa">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					width = "0" height = "0"
+					name = "appletcatcert"
+					mayscript = "true"
+					scriptable = "true"
+					keystore_type = "4"
+					signature_mode = "9"
+					doc_type = "2"
+					protectKeyInfo = "true"
+					local_file = "true"
+					signButtonCaption = "Signa">
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permès executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+			        </noembed>
+				</embed>
+			    </comment>
+			</object>
+		</td></tr>
+	</table>
+</form>
+</BODY>
+</HTML>

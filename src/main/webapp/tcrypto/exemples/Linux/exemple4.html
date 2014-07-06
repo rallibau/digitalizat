@@ -1,0 +1,131 @@
+<HTML>
+<HEAD>
+<TITLE> Test Eina Web de Signatura-e - exemple 4 </TITLE>
+<META NAME="Author" CONTENT="Oscar Burgos; Suport tècnic CATCert">
+<META NAME="Description" CONTENT="Pàgina de Test de l'Eina Web de Signatura-e">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<SCRIPT LANGUAGE="JavaScript">
+
+function onSignOK(signature) {
+	alert ('Signatura generada correctament:\n' + signature);
+}
+function onSignCancel() {
+	alert('Procés cancel·lat per l\'usuari');
+}
+function onSignError(msg) {
+	alert('Error durant la generació de la signatura: \n' + msg);
+}
+function onSignLoad() {
+	alert('Applet de signatura carregat correctament');
+}
+function onLoadError(msg) {
+	alert('Error durant la càrrega de l\'applet:\n' + msg);
+}
+function setAppletParam(name,value) {
+	document.appletcatcert.set(name,value);
+}
+
+function sign() {
+	try{
+		document.appletcatcert.signFromJS();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].signFromJS();
+	}
+}
+
+// metode per arreglar els problemes que hi ha amb els inputs de tipus file degut als canvis de seguretat
+// de firefox
+function inputFileOnChange(){
+	try{
+		document.appletcatcert.openFileDialog();
+	}catch(Exception){
+		// chrome, safari i opera
+		document.appletcatcert[1].openFileDialog();
+	}
+}
+
+function onFileUpload(path){
+	document.getElementById('path').value = path;
+}
+
+
+</SCRIPT>
+</HEAD>
+<BODY>
+</br>
+Signatura XAdES-BES detached d'un document (de qualsevol tipus).</br>
+Certificats obtinguts de la targeta de CATCert (utilitzant la llibreria PKCS#11 de la targeta, veure codi font).</br>
+El document a signar es selecciona amb un diàleg i es passa a l'applet utilitzant Javascript.</br>
+La sortida es pintarà a l'àrea de text reservada a la pàgina html.</br>
+No s'ha definit el logo, però s'ha canviat el color de fons a gris (codi RGB 252, 252, 252).</br>
+L'applet es crida utilitzant el seu propi botó, i se li indica el text a mostrar: "Signa".</br>
+</br>
+<form name="appletCATCertForm">
+	<table align="center" border="1" cellspacing="0" cellpadding="10">
+		<tr><td>
+			<table border="0">
+		        <tr>
+		        	<td>Document a signar:</td>
+		        	<td>
+						<input type="button" value="examinar..." onclick="inputFileOnChange();">
+						<input type="xhidden" id="path" name="path" size="100">
+					</td>
+		        </tr>
+		        <tr>
+			        <td>Signatura generada:</td>
+		        	<td><textarea name="result" style="width:350px" cols="80" rows="10"></textarea></td>
+		        </tr>
+		    </table>
+		</td></tr>
+		<tr><td align = "center">
+			<object
+				classid = "clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			    codebase = "http://java.sun.com/update/1.5.0/jinstall-1_5-windows-i586.cab#Version=5,0,0,5"
+			    width = "130" height = "25"
+			    id="appletcatcert">
+			    <param name = "code" value = "org.catcert.AppletSignatura">
+			    <param name = "archive" value = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar">
+			    <param name = "mayscript" value = "true">
+   				<param name = "scriptable" value = "true">
+			    <param name = "type" value = "application/x-java-applet;version=1.5">
+				<param name = "keystore_type" value = "3">
+				<param name = "signature_mode" value = "11">
+				<param name = "pkcs11_files" value = "/usr/lib/libaetpkss.so,TCAT">
+				<param name = "form_fill" value = "true">
+				<param name = "form_fill_field" value = "result">
+				<param name = "appletBackground" value = "252;252;252">
+				<param name = "signButtonCaption" value = "Signa">
+				<comment>
+				<embed
+					type = "application/x-java-applet;version=1.5"
+					code = "org.catcert.AppletSignatura" archive = "../appletCATCert2.6.jar, ../CATCertXMLlib1.2.3.jar, ../CATCertCMSlib1.3.2.jar, ../CATCertPDFlib1.3.1.jar"
+					width = "130" height = "25" 
+					scriptable = "true"
+					pluginspage = "http://java.sun.com/products/plugin/index.html#download"
+					name = "appletcatcert"
+					mayscript = "true"
+					keystore_type = "3"
+					signature_mode = "11"
+					pkcs11_files = "/usr/lib/libaetpkss.so,TCAT"
+					form_fill = "true"
+					form_fill_field = "result"
+					appletBackground = "252;252;252"
+					doc_type = "4"
+					signButtonCaption ="Signa">
+					<noembed>
+						Atenció! Estàs intentant executar un applet i el navegador no t'ho permet. Possibles raons:<br/>
+						- No està permès executar-los per la política de seguretat.<br/>
+						- Aquest navegador no disposa del Java Plug-in per poder executar applets.<br/>
+						<a href = "http://java.sun.com/products/plugin/downloads/index.html">
+						Aconsegeuix la darrera versió del Java Plug-in aquí.
+						</a>
+			        </noembed>
+				</embed>
+			    </comment>
+			</object>
+		</td></tr>
+	</table>
+</form>
+</BODY>
+</HTML>

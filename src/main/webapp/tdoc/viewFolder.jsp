@@ -27,13 +27,13 @@
             <div style="width:120px; float: left; margin: 20px; margin-top: 0px;"  ng-repeat="folder in folderInfo.folders">
                 <img class="carpeta" src="${pageContext.request.contextPath}/img/folder.png" onclick='window.location.href = "'>
                 <div class="docTittle" style="width: 110px;">
-                    <a href="FGHG">{{folder.name}}</a>
+                    <a href="${pageContext.request.contextPath}/view/viewFolder/{{folder.id}}">{{folder.name}}</a>
                 </div>
             </div>
             <div style="width:120px; float: left; margin: 20px; margin-top: 0px;" ng-repeat="doc in folderInfo.docs">
-                <img class="miniatura" src="obtenerMiniatura.server?codigo={{doc.id}}" onclick='window.location.href = "fileView/" + doc.id'>
+                <img class="miniatura" src="${pageContext.request.contextPath}/view/obtenerMiniatura?codigo={{doc.id}}" onclick='window.location.href = "fileView/" + doc.id'>
                 <div class="docTittle" style="width: 110px;">
-                    <a href="fileView/{{doc.id}}">{{doc.fileName}}</a>
+                    <a href="${pageContext.request.contextPath}/view/fileView/{{doc.id}}">{{doc.fileName}}</a>
                 </div>
             </div>
         </div>
@@ -42,8 +42,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Subir un documento</h3>
             </div>
-            <form class="form-search" method="post" action="${pageContext.request.contextPath}/view/guardarFichero" enctype="multipart/form-data" commandName="fileFormBean">
+            <form class="form-search" method="post" action="${pageContext.request.contextPath}/view/guardarFichero?idFolder=${requestScope.idFolder}" enctype="multipart/form-data" commandName="fileFormBean">
                 <input type="file" id="file" name="file" class="input-medium search-query">
+                <input type="hidden" id="idFolder" value="${requestScope.idFolder}" />
                 <div style="height: 40px;">&nbsp;</div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -59,7 +60,8 @@
             <form:form class="form-search" style="padding: 5px;" method="post" modelAttribute="folder" enctype="multipart/form-data" action="${pageContext.request.contextPath}/view/createFolder">
 
                 <label class="control-label" for="name">Nombre</label>
-                <form:input path="name" />
+                <form:input path="name"/>
+                <form:hidden path="idParent" />
                 <div class="modal-footer" style="margin-top: 5px;">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
                     <button type="submit" class="btn">Crear</button>

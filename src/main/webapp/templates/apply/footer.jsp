@@ -27,7 +27,7 @@
             dataType: 'json',
             success: function(data)
             {
-                window.location.replace("viewDeskTop.view");
+                window.location.replace("<%= request.getContextPath()%>/view/viewFolder/0");
             }
         });
     }
@@ -39,7 +39,7 @@
             dataType: 'json',
             success: function(data)
             {
-                window.location = "viewDeskTop.view";
+                window.location.replace("<%= request.getContextPath()%>/view/viewSignin");
             }
         });
     }

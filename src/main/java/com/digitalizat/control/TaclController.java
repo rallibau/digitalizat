@@ -106,7 +106,7 @@ public class TaclController {
     public String viewSignin(HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "/plataforma/viewDeskTop";
+            return "/plataforma/viewFolder";
         } else {
             return "/plataforma/signin";
         }
@@ -116,7 +116,7 @@ public class TaclController {
     public String viewNewUser(HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "/plataforma/viewDeskTop";
+            return "/plataforma/viewFolder";
         } else {
             return "/plataforma/newUser";
         }

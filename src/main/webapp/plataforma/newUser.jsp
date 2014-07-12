@@ -90,7 +90,7 @@
                     success: function(data)
                     {
                         if (data) {
-                            window.location.replace("${pageContext.request.contextPath}/view/viewDeskTop");
+                            window.location.replace("${pageContext.request.contextPath}/view/viewFolder/0");
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownError) {

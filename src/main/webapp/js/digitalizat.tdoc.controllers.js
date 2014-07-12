@@ -5,7 +5,7 @@
  */
 function seeFolderController($scope, $http) {
     $('#topdiv').show();
-    $http({method: 'GET', url: 'getDocList.server'}).
+    $http({method: 'GET', url: '/tcloud/view/getDocList/' + identFolder + "/"}).
             success(function(data, status, headers, config) {
                 $scope.folderInfo = data;
                 $('#topdiv').hide();

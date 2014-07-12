@@ -32,6 +32,7 @@ Released   : 20130801
         <script src="<%= request.getContextPath()%>/ferroMenu/jquery.ferro.ferroMenu-1.2.2.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                identFolder = '${requestScope.idFolder}';
                 $("#nav").ferroMenu({
                     position: "center-top",
                     delay: 50,

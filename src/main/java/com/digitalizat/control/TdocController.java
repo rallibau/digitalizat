@@ -43,15 +43,15 @@ public class TdocController {
 
     @Autowired
     TdocManager tdocManager;
-    
+
     @Autowired
     ServerProperties serverProperties;
-    
+
     @RequestMapping(value = "obtenerFichero/{codigo}")
-    public void obtenerFichero(@PathVariable(value="codigo") String codigo, HttpServletResponse response) throws FileNotFoundException, IOException, Exception {
-        
+    public void obtenerFichero(@PathVariable(value = "codigo") String codigo, HttpServletResponse response) throws FileNotFoundException, IOException, Exception {
+
         Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
-        
+
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=" + doc.getFileName());
 
@@ -65,19 +65,27 @@ public class TdocController {
 
     @RequestMapping(value = "obtenerMiniatura")
     public void obtenerMiniatura(@RequestParam(value = "codigo", required = true) String codigo, HttpServletResponse response) throws FileNotFoundException, IOException, Exception {
-        Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
-        String salida = ThumbnailCreator.createThumbnail(doc.getBasePath(), doc.getFileName());
-        response.setContentType("image/png");
-        response.setHeader("Content-Disposition", "attachment; filename=" + doc.getFileName() + ".png");
-        InputStream is = new FileInputStream(salida);
-        IOUtils.copy(is, response.getOutputStream());
+        Integer cod = null;
+        try {
+            cod = Integer.valueOf(codigo);
+        } catch (Exception e) {
 
-        response.flushBuffer();
+        }
+        if (cod != null) {
+            Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
+            String salida = ThumbnailCreator.createThumbnail(doc.getBasePath(), doc.getFileName());
+            response.setContentType("image/png");
+            response.setHeader("Content-Disposition", "attachment; filename=" + doc.getFileName() + ".png");
+            InputStream is = new FileInputStream(salida);
+            IOUtils.copy(is, response.getOutputStream());
+
+            response.flushBuffer();
+        }
 
     }
 
     @RequestMapping(value = "guardarFichero", method = RequestMethod.POST)
-    public String guardarFichero(@RequestParam(value = "file", required = true) CommonsMultipartFile file, HttpServletRequest request) throws FileNotFoundException, IOException {
+    public String guardarFichero(@RequestParam(value = "file", required = true) CommonsMultipartFile file, @RequestParam(value = "idFolder", required = true) Integer idFolder, HttpServletRequest request, Model m) throws FileNotFoundException, IOException {
         HttpSession sesion = request.getSession();
         User usuarioLogado;
         if (sesion.getAttribute("user") == null && (!(Boolean) sesion.getAttribute("logged"))) {
@@ -92,21 +100,35 @@ public class TdocController {
 
         Document doc = new Document();
         doc.setBasePath(serverProperties.getRutaGestorDocumental());
-        doc.setPathdoc("/"+usuarioLogado.getBranch().getId()+"/");
+        doc.setPathdoc("/" + usuarioLogado.getBranch().getId() + "/");
         doc.setBranch(usuarioLogado.getBranch());
         doc.setFileName(file.getOriginalFilename());
+        Folder folder;
+        if (idFolder != null && !idFolder.equals(new Integer(0))) {
+            folder = tdocManager.getFolder(idFolder);
+            doc.setFolder(folder);
+            request.setAttribute("idFolder", idFolder);
+            folder.setIdParent(folder.getIdParent());
+            m.addAttribute("folder", folder);
+
+        }else{
+            folder = new Folder();
+        }
+
         tdocManager.addDocument(doc);
 
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "/plataforma/viewDeskTop";
+            m.addAttribute("folder", folder);
+            return "/tdoc/viewFolder";
         } else {
             return "/plataforma/signin";
         }
 
     }
 
-    @RequestMapping(value = "getDocList")
-    public @ResponseBody FolderInfo getDocList(HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "getDocList/{idfolder}")
+    public @ResponseBody
+    FolderInfo getDocList(@PathVariable(value = "idfolder") Integer idfolder, HttpServletRequest request) throws Exception {
         FolderInfo resultado = new FolderInfo();
         List<Document> docs = null;
         List<Folder> folders = null;
@@ -114,8 +136,11 @@ public class TdocController {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
             User logado = (User) sesion.getAttribute("user");
-            docs = tdocManager.listDocuments(logado.getBranch().getId());
-            folders = tdocManager.getFolders(logado.getBranch().getId(), null);
+            if (idfolder == 0) {
+                idfolder = null;
+            }
+            docs = tdocManager.listDocuments(logado.getBranch().getId(), idfolder);
+            folders = tdocManager.getFolders(logado.getBranch().getId(), idfolder);
         }
         resultado.setDocs(docs);
         resultado.setFolders(folders);
@@ -124,35 +149,49 @@ public class TdocController {
     }
 
     @RequestMapping(value = "createFolder", method = RequestMethod.POST)
-    public String createFolder(@ModelAttribute("folder") Folder folder,HttpServletRequest request) {
+    public String createFolder(@ModelAttribute("folder") Folder folder, Model m, HttpServletRequest request) {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
             User logado = (User) sesion.getAttribute("user");
             folder.setBranch(logado.getBranch());
+            if (folder.getIdParent() != null && folder.getIdParent() != 0) {
+                folder.setParent(tdocManager.getFolder(folder.getIdParent()));
+            }
             tdocManager.createFolder(folder);
-            return "/plataforma/viewDeskTop";
+            if (folder.getIdParent() != null && !folder.getIdParent().equals(new Integer(0))) {
+                request.setAttribute("idFolder", folder.getIdParent());
+                folder.setIdParent(folder.getIdParent());
+                m.addAttribute("folder", folder);
+            }else{
+                request.setAttribute("idFolder", 0);
+                folder.setIdParent(folder.getIdParent());
+                m.addAttribute("folder", folder);
+            }
+            return "/tdoc/viewFolder";
         } else {
             return "/plataforma/signin";
         }
 
     }
-    
-     @RequestMapping(value = "viewDeskTop")
-    public String viewDeskTop(Model m,HttpServletRequest request) throws Exception {
+
+    @RequestMapping(value = "viewFolder/{idfolder}")
+    public String viewFolder(@PathVariable(value = "idfolder") Integer idfolder, Model m, HttpServletRequest request) throws Exception {
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
             //User logado = (User)sesion.getAttribute("user");
             //List<Document> docs = tdocManager.listDocuments(logado.getBranch().getId());
-            //request.setAttribute("docs", docs);
-            m.addAttribute("folder", new Folder());
-            return "/plataforma/viewDeskTop";
+            request.setAttribute("idFolder", idfolder);
+            Folder folder = new Folder();
+            folder.setIdParent(idfolder);
+            m.addAttribute("folder", folder);
+            return "/tdoc/viewFolder";
         } else {
             return "/plataforma/signin";
         }
     }
 
     @RequestMapping(value = "fileView/{codigo}")
-    public String fileView(@PathVariable(value="codigo") String codigo,HttpServletRequest request) throws Exception {
+    public String fileView(@PathVariable(value = "codigo") String codigo, HttpServletRequest request) throws Exception {
         HttpSession sesion = request.getSession();
         Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
         request.setAttribute("documento", doc);

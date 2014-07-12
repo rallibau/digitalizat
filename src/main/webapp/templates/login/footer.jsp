@@ -25,7 +25,7 @@
             dataType: 'json',
             success: function(data)
             {
-                window.location.replace("<%= request.getContextPath()%>/view/viewDeskTop");
+                window.location.replace("<%= request.getContextPath()%>/view/viewFolder/0");
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 $('#topdiv').hide();

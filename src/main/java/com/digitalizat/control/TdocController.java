@@ -6,9 +6,7 @@
 package com.digitalizat.control;
 
 import com.digitalizat.business.TdocManager;
-import com.digitalizat.data.FolderInfo;
 import com.digitalizat.document.dao.Document;
-import com.digitalizat.folder.dao.Folder;
 import com.digitalizat.properties.ServerProperties;
 import com.digitalizat.user.dao.User;
 import com.digitalizat.util.ThumbnailCreator;
@@ -53,7 +51,7 @@ public class TdocController {
         Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
 
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=" + doc.getFileName());
+        response.setHeader("Content-Disposition", "attachment; filename=" + doc.getFileName().replace(" ", ""));
 
         InputStream is = new FileInputStream(doc.getBasePath() + doc.getFileName());
 
@@ -85,11 +83,11 @@ public class TdocController {
     }
 
     @RequestMapping(value = "guardarFichero", method = RequestMethod.POST)
-    public String guardarFichero(@RequestParam(value = "file", required = true) CommonsMultipartFile file, @RequestParam(value = "idFolder", required = true) Integer idFolder, HttpServletRequest request, Model m) throws FileNotFoundException, IOException {
+    public String guardarFichero(@RequestParam(value = "file", required = true) CommonsMultipartFile file, @RequestParam(value = "idFolder", required = true) Integer idFolder, HttpServletRequest request, Model m) throws FileNotFoundException, IOException, Exception {
         HttpSession sesion = request.getSession();
         User usuarioLogado;
         if (sesion.getAttribute("user") == null && (!(Boolean) sesion.getAttribute("logged"))) {
-            return "plataforma/newFile";
+            throw new Exception("Login requerido");
         } else {
             usuarioLogado = (User) sesion.getAttribute("user");
         }
@@ -103,36 +101,17 @@ public class TdocController {
         doc.setPathdoc("/" + usuarioLogado.getBranch().getId() + "/");
         doc.setBranch(usuarioLogado.getBranch());
         doc.setFileName(file.getOriginalFilename());
-        Folder folder;
         if (idFolder != null && !idFolder.equals(new Integer(0))) {
-            folder = tdocManager.getFolder(idFolder);
-            doc.setFolder(folder);
-            request.setAttribute("idFolder", idFolder);
-            folder.setIdParent(folder.getIdParent());
-            m.addAttribute("folder", folder);
-
-        }else{
-            folder = new Folder();
+            doc.setParent(tdocManager.getDocument(idFolder));
         }
-
+        doc.setFolder(Boolean.FALSE);
         tdocManager.addDocument(doc);
-
-        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            m.addAttribute("folder", folder);
-            return "/tdoc/viewFolder";
-        } else {
-            return "/plataforma/signin";
-        }
-
+        return "index.html#/tdoc";
     }
 
     @RequestMapping(value = "getDocList/{idfolder}")
-    public @ResponseBody
-    FolderInfo getDocList(@PathVariable(value = "idfolder") Integer idfolder, HttpServletRequest request) throws Exception {
-        FolderInfo resultado = new FolderInfo();
+    public @ResponseBody List<Document> getDocList(@PathVariable(value = "idfolder") Integer idfolder, HttpServletRequest request) throws Exception {
         List<Document> docs = null;
-        List<Folder> folders = null;
-
         HttpSession sesion = request.getSession();
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
             User logado = (User) sesion.getAttribute("user");
@@ -140,54 +119,21 @@ public class TdocController {
                 idfolder = null;
             }
             docs = tdocManager.listDocuments(logado.getBranch().getId(), idfolder);
-            folders = tdocManager.getFolders(logado.getBranch().getId(), idfolder);
         }
-        resultado.setDocs(docs);
-        resultado.setFolders(folders);
-        return resultado;
+
+        return docs;
 
     }
 
-    @RequestMapping(value = "createFolder", method = RequestMethod.POST)
-    public String createFolder(@ModelAttribute("folder") Folder folder, Model m, HttpServletRequest request) {
-        HttpSession sesion = request.getSession();
-        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            User logado = (User) sesion.getAttribute("user");
-            folder.setBranch(logado.getBranch());
-            if (folder.getIdParent() != null && folder.getIdParent() != 0) {
-                folder.setParent(tdocManager.getFolder(folder.getIdParent()));
-            }
-            tdocManager.createFolder(folder);
-            if (folder.getIdParent() != null && !folder.getIdParent().equals(new Integer(0))) {
-                request.setAttribute("idFolder", folder.getIdParent());
-                folder.setIdParent(folder.getIdParent());
-                m.addAttribute("folder", folder);
-            }else{
-                request.setAttribute("idFolder", 0);
-                folder.setIdParent(folder.getIdParent());
-                m.addAttribute("folder", folder);
-            }
-            return "/tdoc/viewFolder";
-        } else {
-            return "/plataforma/signin";
-        }
-
-    }
+//    @RequestMapping(value = "createFolder", method = RequestMethod.POST)
+//    public String createFolder(@ModelAttribute("folder") Folder folder, Model m, HttpServletRequest request) {
+//        return "";
+//
+//    }
 
     @RequestMapping(value = "viewFolder/{idfolder}")
     public String viewFolder(@PathVariable(value = "idfolder") Integer idfolder, Model m, HttpServletRequest request) throws Exception {
-        HttpSession sesion = request.getSession();
-        if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            //User logado = (User)sesion.getAttribute("user");
-            //List<Document> docs = tdocManager.listDocuments(logado.getBranch().getId());
-            request.setAttribute("idFolder", idfolder);
-            Folder folder = new Folder();
-            folder.setIdParent(idfolder);
-            m.addAttribute("folder", folder);
-            return "/tdoc/viewFolder";
-        } else {
-            return "/plataforma/signin";
-        }
+        return "";
     }
 
     @RequestMapping(value = "fileView/{codigo}")
@@ -196,7 +142,7 @@ public class TdocController {
         Document doc = tdocManager.getDocument(Integer.valueOf(codigo));
         request.setAttribute("documento", doc);
         if (sesion.getAttribute("logged") != null && ((Boolean) sesion.getAttribute("logged"))) {
-            return "/plataforma/fileView";
+            return "/tdoc/fileView";
         } else {
             return "/plataforma/signin";
         }

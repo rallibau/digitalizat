@@ -1,0 +1,19 @@
+<div class="container" style="text-align: center;" ng-controller="AppCtrl">
+    <form class="form-signin" style="text-align: left;max-width: 500px;">
+        <h2 class="form-signin-heading">Acceder</h2>
+        Usuario<br/>
+        <input type="text" id="user" class="input-block-level" placeholder="Email address" ng-model="user"/>
+        <br/>Contraseña<br/>
+        <input type="password" id="pwd" class="input-block-level" placeholder="Password" ng-model="pass"/>
+        <br/>
+        <a href="#forgot_password">¿Olvidaste tu contraseña?</a>
+        <a class="create-account" href="${url}/view/viewNewUser.view">Crea una cuenta nueva</a>
+        <a class="create-account" href="#" ng-click="doClose()">close</a>
+
+    </form>
+    <div id="loginError" class="alert alert-error" style="display: none;">
+        <strong>No puedes pasar!!</strong>
+        La contraseña o el usuario son incorrectos
+    </div>
+    <button class="btn btn-large btn-primary" ng-click="doLogin()">Enviar</button>
+</div>

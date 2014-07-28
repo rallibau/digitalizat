@@ -1,0 +1,12 @@
+<div ng-controller = "submitToUpload">
+    <div class="modal-header ng-scope">
+        <h3 class="modal-title">Subir fichero</h3>
+    </div>
+    <div class="modal-body ng-scope">
+        <input type="file" file-model="myFile"/>
+    </div>
+    <div class="modal-footer ng-scope">
+        <button class="btn btn-primary" ng-click="uploadFile()">Subir</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="tcloud" ng-controller="AppCtrl">
+    <head>
+        <title ng-bind="pageTitle"></title>
+        <!-- font awesome from BootstrapCDN -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- compiled CSS -->
+        <link rel="stylesheet" type="text/css" href="assets/ngbp-0.3.2.css" />
+
+        <link href="css/digitalizat.css" rel="stylesheet" />
+        
+         <link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
+
+        <!-- compiled JavaScript -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js"></script>
+        <script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+        <script type="text/javascript" src="src/tcloud/tcloud.js"></script>
+        <script type="text/javascript" src="src/tcloud/tdoc/tdoc.js"></script>
+        <script type="text/javascript" src="src/tcloud/platform/platform.js"></script>
+         <script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <div>
+                .......   {{mail}}     .......
+            </div>
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
+                            ng-click="menuCollapsed = !menuCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand">
+                        tclod
+                        <small>
+                            <a href="http://www.digitalizat.com">
+                                v0.1.0
+                            </a>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" collapse="menuCollapsed" ng-init="obtenerMenu()">
+                    <ul class="nav navbar-nav">
+                        <li ng-repeat="resource in resources"> <a ui-sref="{{resource.path}}"><i class="{{resource.icon}}"></i>{{resource.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container" ui-view="main"></div>
+
+
+    </body>
+</html>

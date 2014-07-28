@@ -25,15 +25,25 @@
         </div>
         <div style="width: 100%;" ng-controller="seeFolderController">
             <div style="width:120px; float: left; margin: 20px; margin-top: 0px;"  ng-repeat="folder in folderInfo.folders">
-                <img class="carpeta" src="${pageContext.request.contextPath}/img/folder.png" onclick='window.location.href = "'>
-                <div class="docTittle" style="width: 110px;">
-                    <a href="${pageContext.request.contextPath}/view/viewFolder/{{folder.id}}">{{folder.name}}</a>
+                <div ng-if="true">
+                    <img class="carpeta" src="${pageContext.request.contextPath}/img/folder2.png" onclick='window.location.href = "'>
+                    <div class="docTittle" style="width: 110px;">
+                        <a href="${pageContext.request.contextPath}/view/viewFolder/{{folder.id}}">{{folder.name}}</a>
+                    </div>
                 </div>
             </div>
             <div style="width:120px; float: left; margin: 20px; margin-top: 0px;" ng-repeat="doc in folderInfo.docs">
-                <img class="miniatura" src="${pageContext.request.contextPath}/view/obtenerMiniatura?codigo={{doc.id}}" onclick='window.location.href = "fileView/" + doc.id'>
-                <div class="docTittle" style="width: 110px;">
-                    <a href="${pageContext.request.contextPath}/view/fileView/{{doc.id}}">{{doc.fileName}}</a>
+                <div ng-if="doc.mime === 'pdf.png'">
+                    <img class="miniatura" src="${pageContext.request.contextPath}/view/obtenerMiniatura?codigo={{doc.id}}" onclick='window.location.href = "fileView/" + doc.id'>
+                    <div class="docTittle" style="width: 110px;">
+                        <a href="${pageContext.request.contextPath}/view/fileView/{{doc.id}}">{{doc.fileName}}</a>
+                    </div>
+                </div>
+                <div  ng-if="doc.mime !== 'pdf.png'">
+                    <img class="carpeta" src="${pageContext.request.contextPath}/img/{{doc.mime}}" onclick='window.location.href = "fileView/" + doc.id'>
+                    <div class="docTittle" style="width: 110px;">
+                        <a href="${pageContext.request.contextPath}/view/fileView/{{doc.id}}">{{doc.fileName}}</a>
+                    </div>
                 </div>
             </div>
         </div>

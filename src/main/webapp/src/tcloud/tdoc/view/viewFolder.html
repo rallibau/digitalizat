@@ -1,0 +1,13 @@
+<div  ng-controller="gridDocController">
+    <div style="width: 100%;margin-bottom: 5px;" ng-controller="ModalDemoCtrl">
+        <button type="button" class="btn btn-primary" ng-click="openUploadFile()">
+            Subir documento
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="createFolder()">
+            Crear carpeta
+        </button>
+    </div>
+    <div>
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+    </div>
+</div>

@@ -51,7 +51,6 @@
                 <value>com.digitalizat.document.dao.Document</value>
                 <value>com.digitalizat.branch.dao.Branch</value>
                 <value>com.digitalizat.resource.dao.Resource</value>
-                <value>com.digitalizat.folder.dao.Folder</value>
             </list>
         </property>
     </bean>
